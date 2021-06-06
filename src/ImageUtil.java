@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -48,15 +51,25 @@ public class ImageUtil {
     System.out.println("Height of image: "+height);
     int maxValue = sc.nextInt();
     System.out.println("Maximum value of a color in this file (usually 256): "+maxValue);
-    
+
+    ArrayList<Pixel> pixels = new ArrayList<>();
+    HashMap<Integer, ArrayList<Pixel>> map = new HashMap<>();
+    ArrayList<Position> positions = new ArrayList<>();
     for (int i=0;i<height;i++) {
-        for (int j=0;j<width;j++) {
+      //i is row
+      //h is column
+      map.put(i, new ArrayList<Pixel>());
+      for (int j=0;j<width;j++) {
             int r = sc.nextInt();
             int g = sc.nextInt();
             int b = sc.nextInt();
+            Pixel newPixel = new Pixel(new Color(r,g,b), new Position(i,j));
+            pixels.add(newPixel);
+            map.get(i).add(newPixel);
             System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
         }
     }
+    //new Picture(pixels, width, height);
   }
 
   //demo main
@@ -69,7 +82,7 @@ public class ImageUtil {
       else {
           filename = "sample.ppm";
       }
-      
+
       ImageUtil.readPPM(filename);
   }
 }
