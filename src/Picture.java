@@ -28,10 +28,10 @@ public class Picture {
     blurData[7] = 1 / 8;
     blurData[8] = 1 / 16;
     Kernel blur = new Kernel(3, 3, blurData);
-    kernalApplyHelper(blur, blur.getWidth(), blur.getHeight());
+    kernalApplyHelper(blur, blur.getHeight());
   }
 
-  private void kernalApplyHelper(Kernel toApply, int kernelWidth, int kernelHeight) {
+  private void kernalApplyHelper(Kernel toApply, int kernelHeight) {
     HashMap<Integer, ArrayList<Pixel>> mapUpdated = new HashMap<>(this.positions);
 
     for (int row : this.positions.keySet()) {
@@ -44,13 +44,15 @@ public class Picture {
 
         int temp = (kernelHeight - 1) / 2;
         //iterating over every row that counts
-        for (int j = temp; j <= kernelHeight; j++) {
-          if(temp < 0 || temp > width || temp > height) {
+        for (int j = temp; j < kernelHeight; j++) {
+          if (temp < 0 || temp > width || temp > height) {
             continue;
-          }
-          else {
+          } else {
             ArrayList<Pixel> currentRow = this.positions.get(j);
-            for (int k = column - temp; k <= column + temp; k++) {
+            for (int k = column - temp; k < column + temp; k++) {
+              if(k < 0 || k > width || k > height ) {
+                continue;
+              }
               Pixel currentPixel = currentRow.get(k);
               ArrayList<Float> currentPixelColors = currentPixel.getColors();
               for (int x = 0; x < currentPixelColors.size(); x++) {
@@ -60,11 +62,16 @@ public class Picture {
               z++;
             }
           }
-
         }
       }
     }
-
+    this.positions = mapUpdated;
+    ArrayList<Pixel> newPixelList = new ArrayList<>();
+    for(int row : this.positions.keySet()) {
+      for(Pixel pixel : this.positions.get(row)) {
+        newPixelList.add(pixel);
+      }
+    }
+    this.pixels = newPixelList;
   }
-
 }

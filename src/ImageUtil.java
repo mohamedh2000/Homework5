@@ -17,7 +17,7 @@ public class ImageUtil {
    *
    * @param filename the path of the file. 
    */
-  public static void readPPM(String filename) {
+  public static Picture readPPM(String filename) {
     Scanner sc;
     
     try {
@@ -25,7 +25,7 @@ public class ImageUtil {
     }
     catch (FileNotFoundException e) {
         System.out.println("File "+filename+ " not found!");
-        return;
+        return null;
     }
     StringBuilder builder = new StringBuilder();
     //read the file line by line, and populate a string. This will throw away any comment lines
@@ -69,7 +69,7 @@ public class ImageUtil {
             System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
         }
     }
-    //new Picture(pixels, width, height);
+    return new Picture(pixels, map, width, height);
   }
 
   //demo main
