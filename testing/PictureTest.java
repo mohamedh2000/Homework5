@@ -34,11 +34,23 @@ public class PictureTest {
       }
     }
 
+    /**
+     *
+     * (0,255,0)(0,255,0)(0,255,0)
+     * (255,0,0)(255,0,0)(255,0,0)
+     * (0,0,255)(0,0,255)(0,0,255)
+     *
+     */
+
+
+
+
     Picture newPic = new Picture(pixels,map,3,3);
-    List<Pixel> oldPixel = newPic.pixels;
+    List<Pixel> oldPixels = newPic.pixels;
     newPic.imageBlur();
-    List<Pixel> newPixel = newPic.pixels;
-    System.out.println(oldPixel != newPixel);
+    List<Pixel> newPixels = newPic.pixels;
+
+
 
   }
 }
