@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Color {
-  private float red;
-  private float green;
-  private float blue;
+  private int red;
+  private int green;
+  private int blue;
 
-  Color(float red, float green, float blue) {
+  Color(int red, int green, int blue) {
     if(red > 255 || red < 0 || green > 255 || green < 0 || blue > 255 || blue < 0) {
       throw new IllegalArgumentException("Color values must be between 0 and 255");
     }
@@ -14,8 +14,8 @@ public class Color {
     this.blue = blue;
   }
 
-  public ArrayList<Float> getColors() {
-    ArrayList<Float> rgb = new ArrayList<>();
+  public ArrayList<Integer> getColors() {
+    ArrayList<Ichanteger> rgb = new ArrayList<>();
     rgb.add(this.red);
     rgb.add(this.green);
     rgb.add(this.blue);

@@ -10,13 +10,13 @@ public class Pixel {
     this.position = position;
   }
 
-  public ArrayList<Float> getColors() {
+  public ArrayList<Integer> getColors() {
     return this.color.getColors();
   }
 
   public Position getPosition() { return this.position;}
 
-  public void setColors(ArrayList<Float> newColors) {
+  public void setColors(ArrayList<Integer> newColors) {
     this.color = new Color(newColors.get(0), newColors.get(1), newColors.get(2));
   }
 }
