@@ -22,5 +22,9 @@ public class Color {
     return rgb;
   }
 
+  public String toString() {
+    return red + " " + green + " " + blue;
+  }
+
 
 }

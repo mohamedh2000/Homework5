@@ -1,16 +1,34 @@
 import java.awt.image.Kernel;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class Picture {
+
   List<Pixel> pixels;
   HashMap<Integer, ArrayList<Pixel>> positions;
   int width;
   int height;
 
   Picture(List<Pixel> pixels, HashMap<Integer, ArrayList<Pixel>> map, int width, int height) {
+    if (Objects.isNull(pixels) || Objects.isNull(map) || Objects.isNull(width) || Objects
+        .isNull(height)) {
+      throw new IllegalArgumentException("Null arguments.");
+    }
+    if (width < 1) {
+      throw new IllegalArgumentException("Invalid width");
+    }
+    if (height < 1) {
+      throw new IllegalArgumentException("Invalid height");
+    }
+    if (width * height != pixels.size()) {
+      throw new IllegalArgumentException("Size of pixels doesn't match picture dimensions");
+    }
     this.pixels = pixels;
     this.positions = map;
     this.width = width;
@@ -24,45 +42,45 @@ public class Picture {
   public void imageBlur() {
     float[] blurData = new float[9];
     blurData[0] = (float) (1.0 / 16.0);
-    blurData[1] = (float)(1.0 / 8.0);
-    blurData[2] = (float)(1.0 / 16.0);
-    blurData[3] = (float)(1.0 / 8.0);
-    blurData[4] = (float)(1.0 / 4.0);
-    blurData[5] = (float)(1.0 / 8.0);
-    blurData[6] = (float)(1.0 / 16.0);
-    blurData[7] = (float)(1.0 / 8.0);
-    blurData[8] = (float)(1.0 / 16.0);
+    blurData[1] = (float) (1.0 / 8.0);
+    blurData[2] = (float) (1.0 / 16.0);
+    blurData[3] = (float) (1.0 / 8.0);
+    blurData[4] = (float) (1.0 / 4.0);
+    blurData[5] = (float) (1.0 / 8.0);
+    blurData[6] = (float) (1.0 / 16.0);
+    blurData[7] = (float) (1.0 / 8.0);
+    blurData[8] = (float) (1.0 / 16.0);
     Kernel blur = new Kernel(3, 3, blurData);
     kernelApplyHelper(blur);
   }
 
   public void imageSharpen() {
     float[] sharpenData = new float[25];
-    sharpenData[0] = -1/8;
-    sharpenData[1] = -1/8;
-    sharpenData[2] = -1/8;
-    sharpenData[3] = -1/8;
-    sharpenData[4] = -1/8;
-    sharpenData[5] = -1/8;
-    sharpenData[6] = 1/4;
-    sharpenData[7] = 1/4;
-    sharpenData[8] = 1/4;
-    sharpenData[9] = -1/8;
-    sharpenData[10] = -1/8;
-    sharpenData[11] = 1/4;
+    sharpenData[0] = -1 / 8;
+    sharpenData[1] = -1 / 8;
+    sharpenData[2] = -1 / 8;
+    sharpenData[3] = -1 / 8;
+    sharpenData[4] = -1 / 8;
+    sharpenData[5] = -1 / 8;
+    sharpenData[6] = 1 / 4;
+    sharpenData[7] = 1 / 4;
+    sharpenData[8] = 1 / 4;
+    sharpenData[9] = -1 / 8;
+    sharpenData[10] = -1 / 8;
+    sharpenData[11] = 1 / 4;
     sharpenData[12] = 1;
-    sharpenData[13] = 1/4;
-    sharpenData[14] = -1/8;
-    sharpenData[15] = -1/8;
-    sharpenData[16] = 1/4;
-    sharpenData[17] = 1/4;
-    sharpenData[18] = 1/4;
-    sharpenData[19] = -1/8;
-    sharpenData[20] = -1/8;
-    sharpenData[21] = -1/8;
-    sharpenData[22] = -1/8;
-    sharpenData[23] = -1/8;
-    sharpenData[24] = -1/8;
+    sharpenData[13] = 1 / 4;
+    sharpenData[14] = -1 / 8;
+    sharpenData[15] = -1 / 8;
+    sharpenData[16] = 1 / 4;
+    sharpenData[17] = 1 / 4;
+    sharpenData[18] = 1 / 4;
+    sharpenData[19] = -1 / 8;
+    sharpenData[20] = -1 / 8;
+    sharpenData[21] = -1 / 8;
+    sharpenData[22] = -1 / 8;
+    sharpenData[23] = -1 / 8;
+    sharpenData[24] = -1 / 8;
 
     Kernel sharpen = new Kernel(5, 5, sharpenData);
     kernelApplyHelper(sharpen);
@@ -70,9 +88,9 @@ public class Picture {
   }
 
 
-  /** Transforms the colors of each pixel of an image to greyscale. Creates a colorTransoformation
+  /**
+   * Transforms the colors of each pixel of an image to greyscale. Creates a colorTransoformation
    * hashmap which will be used to transform the colors to greyscale.
-   *
    */
   public void imageGreyscale() {
     HashMap<Integer, Double> greyscaleFilter = new HashMap<>(9);
@@ -89,8 +107,8 @@ public class Picture {
     this.linearApplyHelper(greyscaleFilter);
   }
 
-  /** Applies a sepia color filter to the image.
-   *
+  /**
+   * Applies a sepia color filter to the image.
    */
   public void imageSepia() {
     HashMap<Integer, Double> sepiaFilter = new HashMap<>(9);
@@ -128,7 +146,7 @@ public class Picture {
         int totalGreen = 0;
 
         //iterating over every row that counts for each channel
-        for(Channel channel : Channels) {
+        for (Channel channel : Channels) {
           int colorIndex = Channels.indexOf(channel);
           for (int j = temp; j < kernelHeight; j++) {
             if (temp < 0 || temp > width || temp > height) {
@@ -141,7 +159,7 @@ public class Picture {
                 }
                 Pixel currentPixel = currentRow.get(k);
                 ArrayList<Integer> currentPixelColors = currentPixel.getColors();
-                switch(Channels.get(colorIndex)) {
+                switch (Channels.get(colorIndex)) {
                   case RED:
                     totalRed += Math.round(currentPixelColors.get(colorIndex) * data[z]);
                     break;
@@ -152,7 +170,8 @@ public class Picture {
                     totalBlue += Math.round(currentPixelColors.get(colorIndex) * data[z]);
                     break;
                   default:
-                    throw new IllegalStateException("Unexpected value: " + Channels.get(colorIndex));
+                    throw new IllegalStateException(
+                        "Unexpected value: " + Channels.get(colorIndex));
                 }
               }
             }
@@ -170,32 +189,49 @@ public class Picture {
   }
 
 
-  /** Applies the filter to each pixel in the image. The filter is a HashMap with the key being a
-   * two digit coordinate (11, 12, 13, 21, 22, 23, 31, 32, 33), and the value being a double.
-   * The new red value of a pixel is:
-   * (the value of 11 * previous red + 12 * previous green + 13 * previous blue).
-   * The new green value of a pixel is:
-   * (the value of 21 * previous red + 22 * previous green + 23 * previous blue).
-   * The new blue value of a pixel is:
-   * (the value of 31 * previous red + 32 * previous green + 33 * previous blue).
+  /**
+   * Applies the filter to each pixel in the image. The filter is a HashMap with the key being a two
+   * digit coordinate (11, 12, 13, 21, 22, 23, 31, 32, 33), and the value being a double. The new
+   * red value of a pixel is: (the value of 11 * previous red + 12 * previous green + 13 * previous
+   * blue). The new green value of a pixel is: (the value of 21 * previous red + 22 * previous green
+   * + 23 * previous blue). The new blue value of a pixel is: (the value of 31 * previous red + 32 *
+   * previous green + 33 * previous blue).
    *
    * @param filter The hashmap containing the values by which each value of each pixel is multiplied
    *               by.
    */
   private void linearApplyHelper(HashMap<Integer, Double> filter) {
     List<Pixel> workingList = new ArrayList<Pixel>();
-    for (Pixel p: this.pixels) {
+    for (Pixel p : this.pixels) {
       ArrayList<Integer> pLoColors = p.getColors();
       float pRed = pLoColors.get(0);
       float pGreen = pLoColors.get(1);
       float pBlue = pLoColors.get(2);
 
-      int newRed = (int) Math.round(pRed * filter.get(11) + pGreen * filter.get(21) + pBlue * filter.get(31));
-      int newGreen = (int) Math.round(pRed * filter.get(12) + pGreen * filter.get(22) + pBlue * filter.get(32));
-      int newBlue = (int) Math.round(pRed * filter.get(13) + pGreen * filter.get(23) + pBlue * filter.get(33));
+      int newRed = (int) Math
+          .round(pRed * filter.get(11) + pGreen * filter.get(21) + pBlue * filter.get(31));
+      int newGreen = (int) Math
+          .round(pRed * filter.get(12) + pGreen * filter.get(22) + pBlue * filter.get(32));
+      int newBlue = (int) Math
+          .round(pRed * filter.get(13) + pGreen * filter.get(23) + pBlue * filter.get(33));
       Color newColor = new Color(newRed, newGreen, newBlue);
       Pixel newPixel = new Pixel(newColor, p.getPosition());
     }
     this.pixels = workingList;
+  }
+
+
+  public void pictureToPPM(String fileName) throws IOException {
+    File ppmFile = new File(fileName + ".ppm");
+    try {
+      FileWriter ppmFileWriter = new FileWriter(ppmFile);
+      ppmFileWriter.write("P3 \n " + width + " " + height + "\n 255");
+      for (Pixel p : pixels) {
+        ppmFileWriter.write("\n" + p.pixelToColorsString());
+      }
+    }
+    catch (IOException e){
+      System.out.print("Count not write to file.");
+    }
   }
 }

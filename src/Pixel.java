@@ -19,4 +19,8 @@ public class Pixel {
   public void setColors(ArrayList<Integer> newColors) {
     this.color = new Color(newColors.get(0), newColors.get(1), newColors.get(2));
   }
+
+  public String pixelToColorsString() {
+    return this.color.toString();
+  }
 }
