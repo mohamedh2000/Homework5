@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class PictureCreator {
@@ -12,11 +13,27 @@ public class PictureCreator {
    * @return A picture.
    */
   public Picture makePicture(int width, int height, ArrayList<Color> loColor) {
+
+
+
+
     ArrayList<Pixel> loPixel = new ArrayList<Pixel>();
+    HashMap<Integer, ArrayList<Pixel>> pixelToRow = new HashMap<>();
+    int k = 0;
     for (int i = 0; i < loColor.size(); i++) {
       Pixel newPixel = new Pixel(loColor.get(i), new Position((i % width), (i / width)));
+      loPixel.add(newPixel);
+      if(loPixel.size() % width == 0 && loPixel.size() != 0) {
+        pixelToRow.put(k, loPixel);
+        k++;
+        loPixel = new ArrayList<Pixel>();
+      }
     }
-    return new Picture(loPixel, null, width, height);
+    ArrayList<Pixel> picturePixels = new ArrayList<>();
+    for(Integer i : pixelToRow.keySet()) {
+      picturePixels.addAll(pixelToRow.get(i));
+    }
+    return new Picture(picturePixels, pixelToRow, width, height);
   }
 
   /** Returns a new picture with a checkerboard pattern, alternating colors each pixel.

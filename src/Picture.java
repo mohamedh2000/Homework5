@@ -69,7 +69,6 @@ public class Picture {
         }
         ppmObjectWriter.write(rowString);
       }
-      ppmObjectWriter.write(Header);
       ppmObjectWriter.close();
   }
 
@@ -239,18 +238,4 @@ public class Picture {
     this.pixels = workingList;
   }
 
-
-//  public void pictureToPPM(String fileName) throws IOException {
-//    File ppmFile = new File(fileName + ".ppm");
-//    try {
-//      FileWriter ppmFileWriter = new FileWriter(ppmFile);
-//      ppmFileWriter.write("P3 \n " + width + " " + height + "\n 255");
-//      for (Pixel p : pixels) {
-//        ppmFileWriter.write("\n" + p.pixelToColorsString());
-//      }
-//    }
-//    catch (IOException e){
-//      System.out.print("Count not write to file.");
-//    }
-//  }
 }
