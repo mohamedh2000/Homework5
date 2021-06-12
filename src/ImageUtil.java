@@ -54,7 +54,6 @@ public class ImageUtil {
 
     ArrayList<Pixel> pixels = new ArrayList<>();
     HashMap<Integer, ArrayList<Pixel>> map = new HashMap<>();
-    ArrayList<Position> positions = new ArrayList<>();
     for (int i=0;i<height;i++) {
       //i is row
       //h is column

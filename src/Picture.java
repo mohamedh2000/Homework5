@@ -57,17 +57,18 @@ public class Picture {
   public void pictureToPPM(String fileName) throws IOException {
       FileWriter ppmObjectWriter = new FileWriter(fileName + ".ppm");
 
-      String Header = "p3" + "\n" + this.width + " " + this.height + "\n" + "255";
-      for(Integer column : this.pixelToRow.keySet()) {
-        Header += "\n";
-        for(Pixel nextPixel : this.pixelToRow.get(column)) {
+      String Header = "P3" + "\n" + this.width + " " + this.height + "\n" + "255";
+      ppmObjectWriter.write(Header);
+      for(Integer row : this.pixelToRow.keySet()) {
+        String rowString = "\n";
+        for(Pixel nextPixel : this.pixelToRow.get(row)) {
           ArrayList<Integer> pixelColor = nextPixel.getColors();
           for(Integer channel : pixelColor) {
-            Header += channel + " ";
+            rowString += channel + " ";
           }
         }
+        ppmObjectWriter.write(rowString);
       }
-      System.out.println("Header: " + Header);
       ppmObjectWriter.write(Header);
       ppmObjectWriter.close();
   }

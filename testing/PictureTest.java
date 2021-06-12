@@ -47,7 +47,7 @@ public class PictureTest {
     Picture newPic = new Picture(pixels,map,3,3);
     Picture koalaPic = new ImageUtil().readPPM("Koala.ppm");
 
-    //koalaPic.pictureToPPM("KoalaTest");
+    koalaPic.pictureToPPM("KoalaTest");
     //List<Pixel> oldPixels = newPic.pixels;
     newPic.imageBlur();
     //List<Pixel> newPixels = newPic.pixels;
