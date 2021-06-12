@@ -54,6 +54,28 @@ public class Picture {
     kernelApplyHelper(blur);
   }
 
+  public void PictureToPPM(String fileName) throws IOException {
+    File ppmObject = new File(fileName + ".ppm");
+    if(ppmObject.createNewFile()) {
+      FileWriter ppmObjectWriter = new FileWriter(fileName + ".ppm");
+
+      String Header = "p3" + "\n" + this.width + " " + this.height + "\n" + "255";
+      for(Integer column : this.positions.keySet()) {
+        Header += "\n";
+        for(Pixel nextPixel : this.positions.get(column)) {
+          ArrayList<Integer> pixelColor = nextPixel.getColors();
+          for(Integer channel : pixelColor) {
+            Header += channel + " ";
+          }
+        }
+      }
+      ppmObjectWriter.close();
+    }
+    else {
+      throw new IllegalArgumentException("File already exists");
+    }
+  }
+
   public void imageSharpen() {
     float[] sharpenData = new float[25];
     sharpenData[0] = -1 / 8;

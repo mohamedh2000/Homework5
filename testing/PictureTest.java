@@ -1,6 +1,7 @@
 import org.junit.Test;
         import org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class PictureTest {
 
   @Test
-  public void imageBlur() {
+  public void imageBlur() throws IOException {
     //Picture newPic = ImageUtil.readPPM("Koala.ppm");
     ArrayList<Pixel> pixels = new ArrayList<Pixel>();
     HashMap<Integer, ArrayList<Pixel>> map = new HashMap<>();
@@ -42,10 +43,8 @@ public class PictureTest {
      *
      */
 
-
-
-
     Picture newPic = new Picture(pixels,map,3,3);
+    newPic.pictureToPPM("test");
     List<Pixel> oldPixels = newPic.pixels;
     newPic.imageBlur();
     List<Pixel> newPixels = newPic.pixels;
