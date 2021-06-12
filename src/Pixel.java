@@ -17,6 +17,7 @@ public class Pixel {
   public Position getPosition() { return this.position;}
 
   public void setColors(ArrayList<Integer> newColors) {
+    System.out.println(newColors);
     this.color = new Color(newColors.get(0), newColors.get(1), newColors.get(2));
   }
 

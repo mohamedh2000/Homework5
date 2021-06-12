@@ -74,31 +74,31 @@ public class Picture {
 
   public void imageSharpen() {
     float[] sharpenData = new float[25];
-    sharpenData[0] = -1 / 8;
-    sharpenData[1] = -1 / 8;
-    sharpenData[2] = -1 / 8;
-    sharpenData[3] = -1 / 8;
-    sharpenData[4] = -1 / 8;
-    sharpenData[5] = -1 / 8;
-    sharpenData[6] = 1 / 4;
-    sharpenData[7] = 1 / 4;
-    sharpenData[8] = 1 / 4;
-    sharpenData[9] = -1 / 8;
-    sharpenData[10] = -1 / 8;
-    sharpenData[11] = 1 / 4;
-    sharpenData[12] = 1;
-    sharpenData[13] = 1 / 4;
-    sharpenData[14] = -1 / 8;
-    sharpenData[15] = -1 / 8;
-    sharpenData[16] = 1 / 4;
-    sharpenData[17] = 1 / 4;
-    sharpenData[18] = 1 / 4;
-    sharpenData[19] = -1 / 8;
-    sharpenData[20] = -1 / 8;
-    sharpenData[21] = -1 / 8;
-    sharpenData[22] = -1 / 8;
-    sharpenData[23] = -1 / 8;
-    sharpenData[24] = -1 / 8;
+    sharpenData[0] = (float) (-1.0 / 8.0);
+    sharpenData[1] = (float) (-1.0 / 8.0);
+    sharpenData[2] = (float) (-1.0 / 8.0);
+    sharpenData[3] = (float) (-1.0 / 8.0);
+    sharpenData[4] = (float) (-1.0 / 8.0);
+    sharpenData[5] = (float) (-1.0 / 8.0);
+    sharpenData[6] = (float) (1.0 / 4.0);
+    sharpenData[7] = (float) (1.0 / 4.0);
+    sharpenData[8] = (float) (1.0 / 4.0);
+    sharpenData[9] = (float) (-1.0 / 8.0);
+    sharpenData[10] = (float) (-1.0 / 8.0);
+    sharpenData[11] = (float) (1.0 / 4.0);
+    sharpenData[12] = (float) 1.0;
+    sharpenData[13] = (float) (1.0 / 4.0);
+    sharpenData[14] = (float) (-1.0 / 8.0);
+    sharpenData[15] = (float) (-1.0 / 8.0);
+    sharpenData[16] = (float) (1.0 / 4.0);
+    sharpenData[17] = (float) (1.0 / 4.0);
+    sharpenData[18] = (float) (1.0 / 4.0);
+    sharpenData[19] = (float) (-1.0 / 8.0);
+    sharpenData[20] = (float) (-1.0 / 8.0);
+    sharpenData[21] = (float) (-1.0 / 8.0);
+    sharpenData[22] = (float) (-1.0 / 8.0);
+    sharpenData[23] = (float) (-1.0 / 8.0);
+    sharpenData[24] = (float) (-1.0 / 8.0);
 
     Kernel sharpen = new Kernel(5, 5, sharpenData);
     kernelApplyHelper(sharpen);
@@ -141,55 +141,46 @@ public class Picture {
     this.linearApplyHelper(sepiaFilter);
   }
 
+  /**
+   * Takes in a kernel and applies filtering to each pixel.
+   * @param toApply The kernel that we want to retrieve the values from.
+   */
   private void kernelApplyHelper(Kernel toApply) {
     HashMap<Integer, ArrayList<Pixel>> mapUpdated = this.pixelToRow;
     int kernelHeight = toApply.getHeight();
     List<Channel> Channels = Arrays.asList(Channel.values());
 
     for (int row : this.pixelToRow.keySet()) {
+      System.out.println("ROW: " + row);
       for (Pixel pixel : this.pixelToRow.get(row)) {
-        Position pixelPosition = pixel.getPosition();
+        int pixelIndex = mapUpdated.get(row).indexOf(pixel);
         float[] data = toApply.getKernelData(null);
-
-        int column = pixelPosition.getColumn();
-
-        int z = 0;
 
         int temp = (kernelHeight - 1) / 2;
 
         int totalRed = 0;
         int totalBlue = 0;
         int totalGreen = 0;
+        int currentRow = row - temp;
+        for (int i = 0; i < (kernelHeight * kernelHeight); i ++) {
+          if(i != 0 && i % kernelHeight == 0) {
+            currentRow += 1;
+          }
+          if(mapUpdated.containsKey(currentRow)) {
+            ArrayList<Pixel> currentPixelList = mapUpdated.get(currentRow);
+            for(int k = pixelIndex - temp; k < pixelIndex + temp; k ++) {
+              if(!(k < 0 || k >= mapUpdated.get(currentRow).size())) {
+                ArrayList<Integer> pixelColors = currentPixelList.get(k).getColors();
 
-        //iterating over every row that counts for each channel
-        for (Channel channel : Channels) {
-          int colorIndex = Channels.indexOf(channel);
-          for (int j = temp; j < kernelHeight; j++) {
-            if (temp < 0 || temp > width || temp > height) {
-              continue;
-            } else {
-              ArrayList<Pixel> currentRow = this.pixelToRow.get(j);
-              for (int k = column - temp; k < column + temp; k++) {
-                if (k < 0 || k > width || k > height) {
-                  continue;
-                }
-                Pixel currentPixel = currentRow.get(k);
-                ArrayList<Integer> currentPixelColors = currentPixel.getColors();
-                switch (Channels.get(colorIndex)) {
-                  case RED:
-                    totalRed += Math.round(currentPixelColors.get(colorIndex) * data[z]);
-                    break;
-                  case GREEN:
-                    totalGreen += Math.round(currentPixelColors.get(colorIndex) * data[z]);
-                    break;
-                  case BLUE:
-                    totalBlue += Math.round(currentPixelColors.get(colorIndex) * data[z]);
-                    break;
-                  default:
-                    throw new IllegalStateException(
-                        "Unexpected value: " + Channels.get(colorIndex));
-                }
+                System.out.println("totalRed: " + Math.ceil(pixelColors.get(0) * data[i]));
+                System.out.println("pixelColor: " + pixelColors.get(0));
+                System.out.println("i: " + i);
+                System.out.println("data[i]: " + data[i]);
+                totalRed += Math.floor(pixelColors.get(0) * data[i]);
+                totalGreen += Math.floor(pixelColors.get(1) * data[i]);
+                totalBlue += Math.floor(pixelColors.get(2) * data[i]);
               }
+              i++;
             }
           }
         }
@@ -198,8 +189,8 @@ public class Picture {
         newColor.add(totalGreen);
         newColor.add(totalBlue);
 
-        mapUpdated.get(pixelPosition.getRow()).get(pixelPosition.getColumn()).setColors(newColor);
-        z++;
+        mapUpdated.get(row).get(pixelIndex).setColors(newColor);
+
       }
     }
   }
