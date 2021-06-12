@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class Picture {
 
-  List<Pixel> pixels;
-  HashMap<Integer, ArrayList<Pixel>> positions;
-  int width;
-  int height;
+  private List<Pixel> pixels;
+  private HashMap<Integer, ArrayList<Pixel>> pixelToRow;
+  private final int width;
+  private final int height;
 
   Picture(List<Pixel> pixels, HashMap<Integer, ArrayList<Pixel>> map, int width, int height) {
     if (Objects.isNull(pixels) || Objects.isNull(map) || Objects.isNull(width) || Objects
@@ -30,7 +30,7 @@ public class Picture {
       throw new IllegalArgumentException("Size of pixels doesn't match picture dimensions");
     }
     this.pixels = pixels;
-    this.positions = map;
+    this.pixelToRow = map;
     this.width = width;
     this.height = height;
   }
@@ -54,26 +54,22 @@ public class Picture {
     kernelApplyHelper(blur);
   }
 
-  public void PictureToPPM(String fileName) throws IOException {
-    File ppmObject = new File(fileName + ".ppm");
-    if(ppmObject.createNewFile()) {
+  public void pictureToPPM(String fileName) throws IOException {
       FileWriter ppmObjectWriter = new FileWriter(fileName + ".ppm");
 
       String Header = "p3" + "\n" + this.width + " " + this.height + "\n" + "255";
-      for(Integer column : this.positions.keySet()) {
+      for(Integer column : this.pixelToRow.keySet()) {
         Header += "\n";
-        for(Pixel nextPixel : this.positions.get(column)) {
+        for(Pixel nextPixel : this.pixelToRow.get(column)) {
           ArrayList<Integer> pixelColor = nextPixel.getColors();
           for(Integer channel : pixelColor) {
             Header += channel + " ";
           }
         }
       }
+      System.out.println("Header: " + Header);
+      ppmObjectWriter.write(Header);
       ppmObjectWriter.close();
-    }
-    else {
-      throw new IllegalArgumentException("File already exists");
-    }
   }
 
   public void imageSharpen() {
@@ -148,12 +144,12 @@ public class Picture {
   }
 
   private void kernelApplyHelper(Kernel toApply) {
-    HashMap<Integer, ArrayList<Pixel>> mapUpdated = new HashMap<>(this.positions);
+    HashMap<Integer, ArrayList<Pixel>> mapUpdated = new HashMap<>(this.pixelToRow);
     int kernelHeight = toApply.getHeight();
     List<Channel> Channels = Arrays.asList(Channel.values());
 
-    for (int row : this.positions.keySet()) {
-      for (Pixel pixel : this.positions.get(row)) {
+    for (int row : this.pixelToRow.keySet()) {
+      for (Pixel pixel : this.pixelToRow.get(row)) {
         Position pixelPosition = pixel.getPosition();
         float[] data = toApply.getKernelData(null);
 
@@ -174,7 +170,7 @@ public class Picture {
             if (temp < 0 || temp > width || temp > height) {
               continue;
             } else {
-              ArrayList<Pixel> currentRow = this.positions.get(j);
+              ArrayList<Pixel> currentRow = this.pixelToRow.get(j);
               for (int k = column - temp; k < column + temp; k++) {
                 if (k < 0 || k > width || k > height) {
                   continue;
@@ -204,7 +200,7 @@ public class Picture {
         newColor.add(totalGreen);
         newColor.add(totalBlue);
 
-        mapUpdated.get(pixelPosition.column).get(pixelPosition.row).setColors(newColor);
+        mapUpdated.get(pixelPosition.getColumn()).get(pixelPosition.getRow()).setColors(newColor);
         z++;
       }
     }
@@ -243,17 +239,17 @@ public class Picture {
   }
 
 
-  public void pictureToPPM(String fileName) throws IOException {
-    File ppmFile = new File(fileName + ".ppm");
-    try {
-      FileWriter ppmFileWriter = new FileWriter(ppmFile);
-      ppmFileWriter.write("P3 \n " + width + " " + height + "\n 255");
-      for (Pixel p : pixels) {
-        ppmFileWriter.write("\n" + p.pixelToColorsString());
-      }
-    }
-    catch (IOException e){
-      System.out.print("Count not write to file.");
-    }
-  }
+//  public void pictureToPPM(String fileName) throws IOException {
+//    File ppmFile = new File(fileName + ".ppm");
+//    try {
+//      FileWriter ppmFileWriter = new FileWriter(ppmFile);
+//      ppmFileWriter.write("P3 \n " + width + " " + height + "\n 255");
+//      for (Pixel p : pixels) {
+//        ppmFileWriter.write("\n" + p.pixelToColorsString());
+//      }
+//    }
+//    catch (IOException e){
+//      System.out.print("Count not write to file.");
+//    }
+//  }
 }

@@ -11,6 +11,7 @@ public class PictureTest {
   @Test
   public void imageBlur() throws IOException {
     //Picture newPic = ImageUtil.readPPM("Koala.ppm");
+
     ArrayList<Pixel> pixels = new ArrayList<Pixel>();
     HashMap<Integer, ArrayList<Pixel>> map = new HashMap<>();
     map.put(0, new ArrayList<Pixel>());
@@ -44,10 +45,12 @@ public class PictureTest {
      */
 
     Picture newPic = new Picture(pixels,map,3,3);
-    newPic.pictureToPPM("test");
-    List<Pixel> oldPixels = newPic.pixels;
+    Picture koalaPic = new ImageUtil().readPPM("Koala.ppm");
+
+    //koalaPic.pictureToPPM("KoalaTest");
+    //List<Pixel> oldPixels = newPic.pixels;
     newPic.imageBlur();
-    List<Pixel> newPixels = newPic.pixels;
+    //List<Pixel> newPixels = newPic.pixels;
 
 
 
