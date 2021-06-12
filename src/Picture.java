@@ -102,9 +102,7 @@ public class Picture {
 
     Kernel sharpen = new Kernel(5, 5, sharpenData);
     kernelApplyHelper(sharpen);
-
   }
-
 
   /**
    * Transforms the colors of each pixel of an image to greyscale. Creates a colorTransoformation

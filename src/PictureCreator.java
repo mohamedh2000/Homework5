@@ -13,10 +13,6 @@ public class PictureCreator {
    * @return A picture.
    */
   public Picture makePicture(int width, int height, ArrayList<Color> loColor) {
-
-
-
-
     ArrayList<Pixel> loPixel = new ArrayList<Pixel>();
     HashMap<Integer, ArrayList<Pixel>> pixelToRow = new HashMap<>();
     int k = 0;
@@ -37,35 +33,47 @@ public class PictureCreator {
   }
 
   /** Returns a new picture with a checkerboard pattern, alternating colors each pixel.
+   * The tileSize should handle the number of tiles as well.
    *
    * @param color1 The first color in the pattern.
    * @param color2 The second color in the pattern.
    * @param width The width of the picture in pixels.
    * @param height The height of the picture in pixels.
+   * @param tileSize The size of a tile. The tile Size will be applied to height and width of a tile.
    * @return The checkerboard picture.
    */
-  public Picture checkerBoard(Color color1, Color color2, int width, int height) {
+  public Picture checkerBoard(Color color1, Color color2, int width, int height, int tileSize) {
+    if((width % tileSize) != 0 || (height % tileSize) != 0) {
+      throw new IllegalArgumentException("tileSize is invalid");
+    }
 
-    int totalSize = width * height;
     ArrayList<Color> loColor = new ArrayList<Color>();
-    for (int h = 0; h < height; h++) {
-      Color currColor;
-      if (h % 2 == 0) {
-        currColor = color1;
+    HashMap<Integer, ArrayList<Color>> map = new HashMap<>();
+    Boolean applyColor1 = true;
+    for(int h = 0; h < height; h ++) {
+      map.put(h, new ArrayList<>());
+      if(h % tileSize == 0) {
+        System.out.println("H has reached a limit");
+        applyColor1 = !applyColor1;
       }
-      else {
-        currColor = color2;
-      }
-      for (int w = 0; w < width; w++) {
-        loColor.add(currColor);
-        if (currColor == color1) {
-          currColor = color2;
+      for(int j = 0; j < width; j++) {
+        if(j % tileSize == 0 && j != 0) {
+          applyColor1 = !applyColor1;
+        }
+        if(applyColor1) {
+          map.get(h).add(color1);
         }
         else {
-          currColor = color1;
+          map.get(h).add(color2);
         }
       }
     }
+    for(int column : map.keySet()) {
+      for(Color currentColor : map.get(column)) {
+        loColor.add(currentColor);
+      }
+    }
+
     return makePicture(width, height, loColor);
   }
 }
