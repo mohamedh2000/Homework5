@@ -1,3 +1,6 @@
+import static org.junit.Assert.assertTrue;
+
+import java.awt.Image;
 import org.junit.Test;
         import org.junit.Assert.*;
 
@@ -43,8 +46,36 @@ public class PictureTest {
      * (0,0,255)(0,0,255)(0,0,255)
      *
      */
+    Picture koalapic = ImageUtil.readPPM("Koala.ppm");
+    koalapic.imageBlur();
+
+    koalapic.pictureToPPM("BlurryKoala");
 
 
 
+  }
+
+  @Test
+  public void testGreyscale() {
+    Picture koalapic = ImageUtil.readPPM("Koala.ppm");
+    koalapic.imageGreyscale();
+    try {
+      koalapic.pictureToPPM("greyScaleKoala");
+    }
+    catch (IOException e) {
+      assertTrue(false);
+    }
+  }
+
+  @Test
+  public void testSepia() {
+    Picture koalapic = ImageUtil.readPPM("Koala.ppm");
+    koalapic.imageSepia();
+    try {
+      koalapic.pictureToPPM("sepiaKoala");
+    }
+    catch (IOException e) {
+      assertTrue(false);
+    }
   }
 }

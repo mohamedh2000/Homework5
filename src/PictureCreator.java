@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,8 +42,6 @@ public class PictureCreator {
    * @return The checkerboard picture.
    */
   public Picture checkerBoard(Color color1, Color color2, int width, int height) {
-
-    int totalSize = width * height;
     ArrayList<Color> loColor = new ArrayList<Color>();
     for (int h = 0; h < height; h++) {
       Color currColor;

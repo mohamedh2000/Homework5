@@ -58,7 +58,7 @@ public class Picture {
    */
   public void imageBlur() {
     float[] blurData = new float[9];
-    blurData[0] = (float) (1g.0 / 16.0);
+    blurData[0] = (float) (1.0 / 16.0);
     blurData[1] = (float) (1.0 / 8.0);
     blurData[2] = (float) (1.0 / 16.0);
     blurData[3] = (float) (1.0 / 8.0);
@@ -249,8 +249,13 @@ public class Picture {
    */
   private void linearApplyHelper(HashMap<Integer, Double> filter) {
     List<Pixel> workingList = new ArrayList<Pixel>();
-    for (Pixel p : this.pixels) {
-      ArrayList<Integer> pLoColors = p.getColors();
+    HashMap<Integer, ArrayList<Pixel>> workingMap = new HashMap<Integer, ArrayList<Pixel>>();
+    for (int h = 0; h < this.height; h++) {
+      workingMap.put(h, new ArrayList<Pixel>());
+    }
+    for (int p = 0; p < this.pixels.size(); p++) {
+      Pixel currPix = this.pixels.get(p);
+      ArrayList<Integer> pLoColors = currPix.getColors();
       float pRed = pLoColors.get(0);
       float pGreen = pLoColors.get(1);
       float pBlue = pLoColors.get(2);
@@ -262,9 +267,11 @@ public class Picture {
       int newBlue = (int) Math
           .round(pRed * filter.get(13) + pGreen * filter.get(23) + pBlue * filter.get(33));
       Color newColor = new Color(newRed, newGreen, newBlue);
-      Pixel newPixel = new Pixel(newColor, p.getPosition());
+      Pixel newPixel = new Pixel(newColor, currPix.getPosition());
+      workingMap.get(p / width).add(newPixel);
     }
     this.pixels = workingList;
+    this.pixelToRow = workingMap;
   }
 
 }

@@ -6,13 +6,35 @@ public class Color {
   private int blue;
 
   Color(int red, int green, int blue) {
-    if(red > 255 || red < 0 || green > 255 || green < 0 || blue > 255 || blue < 0) {
-      throw new IllegalArgumentException("Color values must be between 0 and 255");
+    if (red > 255) {
+      this.red = 255;
+    } else {
+      if (red < 0) {
+        this.red = 0;
+      } else {
+        this.red = red;
+      }
     }
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
+    if (green > 255) {
+      this.green = 255;
+    } else {
+      if (green < 0) {
+        this.green = 0;
+      } else {
+        this.green = red;
+      }
+    }
+    if (blue > 255) {
+      this.blue = 255;
+    } else {
+      if (blue < 0) {
+        this.blue = 0;
+      } else {
+        this.blue = red;
+      }
+    }
   }
+
 
   public ArrayList<Integer> getColors() {
     ArrayList<Integer> rgb = new ArrayList<>();
