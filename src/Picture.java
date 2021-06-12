@@ -144,7 +144,7 @@ public class Picture {
   }
 
   private void kernelApplyHelper(Kernel toApply) {
-    HashMap<Integer, ArrayList<Pixel>> mapUpdated = new HashMap<>(this.pixelToRow);
+    HashMap<Integer, ArrayList<Pixel>> mapUpdated = this.pixelToRow;
     int kernelHeight = toApply.getHeight();
     List<Channel> Channels = Arrays.asList(Channel.values());
 
@@ -200,7 +200,7 @@ public class Picture {
         newColor.add(totalGreen);
         newColor.add(totalBlue);
 
-        mapUpdated.get(pixelPosition.getColumn()).get(pixelPosition.getRow()).setColors(newColor);
+        mapUpdated.get(pixelPosition.getRow()).get(pixelPosition.getColumn()).setColors(newColor);
         z++;
       }
     }

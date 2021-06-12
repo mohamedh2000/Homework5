@@ -36,15 +36,9 @@ public class PictureTest {
       }
     }
 
-    /**
-     *
-     * (0,255,0)(0,255,0)(0,255,0)
-     * (255,0,0)(255,0,0)(255,0,0)
-     * (0,0,255)(0,0,255)(0,0,255)
-     *
-     */
-
-
+    Picture koalaPic = new ImageUtil().readPPM("Koala.ppm");
+    koalaPic.imageBlur();
+    koalaPic.pictureToPPM("ImageBlur");
 
   }
 }
