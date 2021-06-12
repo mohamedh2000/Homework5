@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+/** Represents a picture.
+ *
+ */
 public class Picture {
 
   private List<Pixel> pixels;
@@ -15,6 +18,14 @@ public class Picture {
   private final int width;
   private final int height;
 
+  /** Creates a picture
+   *
+   * @param pixels The list of all pixels
+   * @param map A hashmap with the key being the row, and the value being an arraylist of all pixels
+   *            in the row.
+   * @param width The width of the picture in pixels.
+   * @param height The height of the picture in pixels.
+   */
   Picture(List<Pixel> pixels, HashMap<Integer, ArrayList<Pixel>> map, int width, int height) {
     if (Objects.isNull(pixels) || Objects.isNull(map) || Objects.isNull(width) || Objects
         .isNull(height)) {
@@ -35,13 +46,19 @@ public class Picture {
     this.height = height;
   }
 
+  /** The channel of the color. Red, Green, or Blue.
+   *
+   */
   private enum Channel {
     RED, GREEN, BLUE
   }
 
+  /** Blurs an image by applying a kernel.
+   *
+   */
   public void imageBlur() {
     float[] blurData = new float[9];
-    blurData[0] = (float) (1.0 / 16.0);
+    blurData[0] = (float) (1g.0 / 16.0);
     blurData[1] = (float) (1.0 / 8.0);
     blurData[2] = (float) (1.0 / 16.0);
     blurData[3] = (float) (1.0 / 8.0);
@@ -54,6 +71,11 @@ public class Picture {
     kernelApplyHelper(blur);
   }
 
+  /** Creates a PPM file corresponding to the picture.
+   *
+   * @param fileName The name of the ppm file.
+   * @throws IOException
+   */
   public void pictureToPPM(String fileName) throws IOException {
       FileWriter ppmObjectWriter = new FileWriter(fileName + ".ppm");
 
@@ -72,6 +94,9 @@ public class Picture {
       ppmObjectWriter.close();
   }
 
+  /** Sharpens the image by applying a kernel.
+   *
+   */
   public void imageSharpen() {
     float[] sharpenData = new float[25];
     sharpenData[0] = -1 / 8;
@@ -143,6 +168,10 @@ public class Picture {
     this.linearApplyHelper(sepiaFilter);
   }
 
+  /** Applies a kernel to each pixel in the image where it is possible.
+   *
+   * @param toApply
+   */
   private void kernelApplyHelper(Kernel toApply) {
     HashMap<Integer, ArrayList<Pixel>> mapUpdated = new HashMap<>(this.pixelToRow);
     int kernelHeight = toApply.getHeight();

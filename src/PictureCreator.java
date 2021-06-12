@@ -2,7 +2,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/** A class containing methods to create pictures.
+ *
+ */
 public class PictureCreator {
 
   /** Creates a picture given a width, height, and list of Colors
@@ -13,10 +15,6 @@ public class PictureCreator {
    * @return A picture.
    */
   public Picture makePicture(int width, int height, ArrayList<Color> loColor) {
-
-
-
-
     ArrayList<Pixel> loPixel = new ArrayList<Pixel>();
     HashMap<Integer, ArrayList<Pixel>> pixelToRow = new HashMap<>();
     int k = 0;
