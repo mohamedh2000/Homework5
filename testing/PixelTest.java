@@ -1,12 +1,17 @@
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.Test;
 
+/**
+ * Tests the pixel Class.
+ */
 public class PixelTest {
 
+  /**
+   * Tests the get Position method.
+   */
   @Test
   public void testGetPosition() {
     Position newPosn = new Position(0, 0);
@@ -17,6 +22,9 @@ public class PixelTest {
     assertEquals(newPosn, testPixel.getPosition());
   }
 
+  /**
+   * Tests the set colors method.
+   */
   @Test
   public void testSetColors() {
     Position newPosn = new Position(0, 0);
@@ -30,6 +38,9 @@ public class PixelTest {
     assertEquals(intlist, testPixel.getColors());
   }
 
+  /**
+   * Tests the get colors method.
+   */
   @Test
   public void testGetColors() {
     Position newPosn = new Position(0, 0);
@@ -43,6 +54,9 @@ public class PixelTest {
     assertEquals(integers, testPixel.getColors());
   }
 
+  /**
+   * Tests the pixelToColorString method.
+   */
   @Test
   public void testPixelToColorsString() {
     Position newPosn = new Position(0, 0);
