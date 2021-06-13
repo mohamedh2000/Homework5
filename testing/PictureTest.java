@@ -135,10 +135,10 @@ public class PictureTest {
 
   @Test
   public void testSepia2() {
-    Picture koalapic = ImageUtil.readPPM("Spencer.ppm");
+    Picture koalapic = ImageUtil.readPPM("Koala.ppm");
     koalapic.imageSepia();
     try {
-      koalapic.pictureToPPM("sepiaSpencer");
+      koalapic.pictureToPPM("KoalaSepia");
     }
     catch (IOException e) {
       assertTrue(false);
@@ -147,10 +147,10 @@ public class PictureTest {
 
   @Test
   public void testGreyscale2() {
-    Picture koalapic = ImageUtil.readPPM("Spencer.ppm");
+    Picture koalapic = ImageUtil.readPPM("koala.ppm");
     koalapic.imageGreyscale();
     try {
-      koalapic.pictureToPPM("greyScaleSpencer");
+      koalapic.pictureToPPM("greyScaleKoala");
     }
     catch (IOException e) {
       assertTrue(false);
