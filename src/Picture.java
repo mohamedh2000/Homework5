@@ -142,7 +142,7 @@ public class Picture {
   }
 
   /**
-   * Takes in a kernel and applies filtering to each pixel.
+   * Applies filtering to each pixel. If the pixel/row doesn't exist it will just skip onto the next.
    * @param toApply The kernel that we want to retrieve the values from.
    */
   private void kernelApplyHelper(Kernel toApply) {
@@ -163,19 +163,19 @@ public class Picture {
         int totalGreen = 0;
         int currentRow = row - temp;
         for (int i = 0; i < (kernelHeight * kernelHeight); i ++) {
-          if(i != 0 && i % kernelHeight == 0) {
+          if(i != 0 && (i % kernelHeight == 0) && currentRow >= 0) {
             currentRow += 1;
+          }
+          if (currentRow < 0) {
+            currentRow += 1;
+            i += (kernelHeight - 1);
+            continue;
           }
           if(mapUpdated.containsKey(currentRow)) {
             ArrayList<Pixel> currentPixelList = mapUpdated.get(currentRow);
             for(int k = pixelIndex - temp; k < pixelIndex + temp; k ++) {
               if(!(k < 0 || k >= mapUpdated.get(currentRow).size())) {
                 ArrayList<Integer> pixelColors = currentPixelList.get(k).getColors();
-
-                System.out.println("totalRed: " + Math.ceil(pixelColors.get(0) * data[i]));
-                System.out.println("pixelColor: " + pixelColors.get(0));
-                System.out.println("i: " + i);
-                System.out.println("data[i]: " + data[i]);
                 totalRed += Math.floor(pixelColors.get(0) * data[i]);
                 totalGreen += Math.floor(pixelColors.get(1) * data[i]);
                 totalBlue += Math.floor(pixelColors.get(2) * data[i]);
@@ -184,13 +184,30 @@ public class Picture {
             }
           }
         }
+        if(totalRed > 256) {
+          totalRed = 255;
+        }
+        if(totalGreen > 256) {
+          totalGreen = 255;
+        }
+        if(totalBlue > 256) {
+          totalBlue = 255;
+        }
+        if(totalRed < 0 ) {
+          totalRed = 0;
+        }
+        if(totalGreen < 0 ) {
+          totalGreen = 0;
+        }
+        if(totalBlue < 0 ) {
+          totalBlue = 0;
+        }
+
         ArrayList<Integer> newColor = new ArrayList<>();
         newColor.add(totalRed);
         newColor.add(totalGreen);
         newColor.add(totalBlue);
-
         mapUpdated.get(row).get(pixelIndex).setColors(newColor);
-
       }
     }
   }

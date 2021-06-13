@@ -32,9 +32,9 @@ public class PictureTest {
 //      }
 //    }
 
-    Picture koalaPic = new ImageUtil().readPPM("Koala.ppm");
-    koalaPic.imageSharpen();
-    koalaPic.pictureToPPM("ImageSharpen");
+    Picture koalaPic = new ImageUtil().readPPM("apple.ppm");
+    koalaPic.imageBlur();
+    koalaPic.pictureToPPM("appleBlur");
 
   }
 }

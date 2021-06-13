@@ -65,7 +65,6 @@ public class ImageUtil {
             Pixel newPixel = new Pixel(new Color(r,g,b), new Position(i,j));
             pixels.add(newPixel);
             map.get(i).add(newPixel);
-            System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
         }
     }
     return new Picture(pixels, map, width, height);

@@ -6,8 +6,8 @@ public class Color {
   private int blue;
 
   Color(int red, int green, int blue) {
-    if(red > 255 || red < 0 || green > 255 || green < 0 || blue > 255 || blue < 0) {
-      throw new IllegalArgumentException("Color values must be between 0 and 255");
+    if(red > 256 || red < 0 || green > 256 || green < 0 || blue > 256 || blue < 0) {
+      throw new IllegalArgumentException("Color values must be between 0 and 256");
     }
     this.red = red;
     this.green = green;
