@@ -1,8 +1,9 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/** A class containing methods to create pictures.
+ *
+ */
 public class PictureCreator {
 
   /** Creates a picture given a width, height, and list of Colors
@@ -42,6 +43,7 @@ public class PictureCreator {
    * @param tileSize The size of a tile. The tile Size will be applied to height and width of a tile.
    * @return The checkerboard picture.
    */
+
   public Picture checkerBoard(Color color1, Color color2, int width, int height, int tileSize) {
     if((width % tileSize) != 0 || (height % tileSize) != 0) {
       throw new IllegalArgumentException("tileSize is invalid");

@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+/** Represents a picture.
+ *
+ */
 public class Picture {
 
   private List<Pixel> pixels;
@@ -15,6 +18,14 @@ public class Picture {
   private final int width;
   private final int height;
 
+  /** Creates a picture
+   *
+   * @param pixels The list of all pixels
+   * @param map A hashmap with the key being the row, and the value being an arraylist of all pixels
+   *            in the row.
+   * @param width The width of the picture in pixels.
+   * @param height The height of the picture in pixels.
+   */
   Picture(List<Pixel> pixels, HashMap<Integer, ArrayList<Pixel>> map, int width, int height) {
     if (Objects.isNull(pixels) || Objects.isNull(map) || Objects.isNull(width) || Objects
         .isNull(height)) {
@@ -35,10 +46,16 @@ public class Picture {
     this.height = height;
   }
 
+  /** The channel of the color. Red, Green, or Blue.
+   *
+   */
   private enum Channel {
     RED, GREEN, BLUE
   }
 
+  /** Blurs an image by applying a kernel.
+   *
+   */
   public void imageBlur() {
     float[] blurData = new float[9];
     blurData[0] = (float) (1.0 / 16.0);
@@ -54,6 +71,11 @@ public class Picture {
     kernelApplyHelper(blur);
   }
 
+  /** Creates a PPM file corresponding to the picture.
+   *
+   * @param fileName The name of the ppm file.
+   * @throws IOException
+   */
   public void pictureToPPM(String fileName) throws IOException {
       FileWriter ppmObjectWriter = new FileWriter(fileName + ".ppm");
 
@@ -72,6 +94,9 @@ public class Picture {
       ppmObjectWriter.close();
   }
 
+  /** Sharpens the image by applying a kernel.
+   *
+   */
   public void imageSharpen() {
     float[] sharpenData = new float[25];
     sharpenData[0] = (float) (-1.0 / 8.0);
@@ -140,6 +165,7 @@ public class Picture {
 
     this.linearApplyHelper(sepiaFilter);
   }
+
 
   /**
    * Applies filtering to each pixel. If the pixel/row doesn't exist it will just skip onto the next.
@@ -226,8 +252,13 @@ public class Picture {
    */
   private void linearApplyHelper(HashMap<Integer, Double> filter) {
     List<Pixel> workingList = new ArrayList<Pixel>();
-    for (Pixel p : this.pixels) {
-      ArrayList<Integer> pLoColors = p.getColors();
+    HashMap<Integer, ArrayList<Pixel>> workingMap = new HashMap<Integer, ArrayList<Pixel>>();
+    for (int h = 0; h < this.height; h++) {
+      workingMap.put(h, new ArrayList<Pixel>());
+    }
+    for (int p = 0; p < this.pixels.size(); p++) {
+      Pixel currPix = this.pixels.get(p);
+      ArrayList<Integer> pLoColors = currPix.getColors();
       float pRed = pLoColors.get(0);
       float pGreen = pLoColors.get(1);
       float pBlue = pLoColors.get(2);
@@ -239,9 +270,11 @@ public class Picture {
       int newBlue = (int) Math
           .round(pRed * filter.get(13) + pGreen * filter.get(23) + pBlue * filter.get(33));
       Color newColor = new Color(newRed, newGreen, newBlue);
-      Pixel newPixel = new Pixel(newColor, p.getPosition());
+      Pixel newPixel = new Pixel(newColor, currPix.getPosition());
+      workingMap.get(p / width).add(newPixel);
     }
     this.pixels = workingList;
+    this.pixelToRow = workingMap;
   }
 
 }
