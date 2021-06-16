@@ -172,7 +172,7 @@ public class Picture {
      *
      * @param toApply The kernel that we want to retrieve the values from.
      */
-    private void kernelApplyHelper(Kernel toApply) {
+    public void kernelApplyHelper(Kernel toApply) {
         HashMap<Integer, ArrayList<Pixel>> mapUpdated = this.pixelToRow;
         int kernelHeight = toApply.getHeight();
         List<Channel> Channels = Arrays.asList(Channel.values());
@@ -251,7 +251,7 @@ public class Picture {
      * @param filter The hashmap containing the values by which each value of each pixel is multiplied
      *               by.
      */
-    private void linearApplyHelper(HashMap<Integer, Double> filter) {
+    public void linearApplyHelper(HashMap<Integer, Double> filter) {
         List<Pixel> workingList = new ArrayList<Pixel>();
         HashMap<Integer, ArrayList<Pixel>> workingMap = new HashMap<Integer, ArrayList<Pixel>>();
         for (int h = 0; h < this.height; h++) {
@@ -276,6 +276,18 @@ public class Picture {
         }
         this.pixels = workingList;
         this.pixelToRow = workingMap;
+    }
+
+    /** Returns the arraylist of pixels in this picture.
+     *
+     * @return The arraylist of pixels.
+     */
+    public List<Pixel> getPixels() {
+        List<Pixel> returnPixels = new ArrayList<Pixel>();
+        for (Pixel p : this.pixels) {
+            returnPixels.add(p);
+        }
+        return returnPixels;
     }
 
 }
