@@ -179,4 +179,16 @@ public class PictureTest {
             assertTrue(false);
         }
     }
+
+    @Test
+    public void testBlur() {
+        Picture spencerpic = ImageUtil.readPPM("koala.ppm");
+        spencerpic.imageBlur();
+        try {
+            spencerpic.pictureToPPM("spencerBlur");
+        }
+        catch (IOException e) {
+            assertTrue(false);
+        }
+    }
 }
