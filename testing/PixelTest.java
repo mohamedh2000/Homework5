@@ -2,6 +2,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import Model.PixelModel.Color;
+import Model.PixelModel.Position;
+import Model.PixelModel.Pixel;
 import org.junit.Test;
 
 /**
@@ -10,7 +13,7 @@ import org.junit.Test;
 public class PixelTest {
 
   /**
-   * Tests the get Position method.
+   * Tests the get Pixel.Position method.
    */
   @Test
   public void testGetPosition() {

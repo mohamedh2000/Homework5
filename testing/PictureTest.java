@@ -2,6 +2,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
+import Model.FilterModel.Blur;
+import Model.FilterModel.Greyscale;
+import Model.FilterModel.Sepia;
+import Model.ImageUtil;
+import Model.PictureModel.Picture;
+import Model.PixelModel.Pixel;
+import Model.PixelModel.Color;
+import Model.PixelModel.Position;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +28,7 @@ public class PictureTest {
      */
     @Test
     public void imageBlur() throws IOException {
-        //Picture newPic = ImageUtil.readPPM("Koala.ppm");
+        //Model.PictureModel.Picture newPic = Model.ImageUtil.readPPM("Koala.ppm");
 
         ArrayList<Pixel> pixels = new ArrayList<Pixel>();
         HashMap<Integer, ArrayList<Pixel>> map = new HashMap<>();
@@ -52,7 +60,7 @@ public class PictureTest {
          *
          */
         Picture koalapic = ImageUtil.readPPM("Koala.ppm");
-        koalapic.imageBlur();
+        new Blur().filter(koalapic);
 
         koalapic.pictureToPPM("BlurryKoala");
     }
@@ -63,7 +71,7 @@ public class PictureTest {
     @Test
     public void testGreyscale() {
         Picture koalapic = ImageUtil.readPPM("Koala.ppm");
-        koalapic.imageGreyscale();
+        new Greyscale().filter(koalapic);
         try {
             koalapic.pictureToPPM("greyScaleKoala");
         } catch (IOException e) {
@@ -72,12 +80,12 @@ public class PictureTest {
     }
 
     /**
-     * Tests the Sepia method.
+     * Tests the Model.FilterModel.Sepia method.
      */
     @Test
     public void testSepia() {
         Picture koalapic = ImageUtil.readPPM("Koala.ppm");
-        koalapic.imageSepia();
+        new Sepia().filter(koalapic);
         try {
             koalapic.pictureToPPM("sepiaKoala");
         } catch (IOException e) {
@@ -153,12 +161,12 @@ public class PictureTest {
     }
 
     /**
-     * Tests another file for Sepia.
+     * Tests another file for Model.FilterModel.Sepia.
      */
     @Test
     public void testSepia2() {
         Picture koalapic = ImageUtil.readPPM("Koala.ppm");
-        koalapic.imageSepia();
+        new Sepia().filter(koalapic);
         try {
             koalapic.pictureToPPM("KoalaSepia");
         } catch (IOException e) {
@@ -172,7 +180,7 @@ public class PictureTest {
     @Test
     public void testGreyscale2() {
         Picture koalapic = ImageUtil.readPPM("koala.ppm");
-        koalapic.imageGreyscale();
+        new Greyscale().filter(koalapic);
         try {
             koalapic.pictureToPPM("greyScaleKoala");
         } catch (IOException e) {
@@ -183,7 +191,7 @@ public class PictureTest {
     @Test
     public void testBlur() {
         Picture spencerpic = ImageUtil.readPPM("koala.ppm");
-        spencerpic.imageBlur();
+        new Blur().filter(spencerpic);
         try {
             spencerpic.pictureToPPM("spencerBlur");
         }

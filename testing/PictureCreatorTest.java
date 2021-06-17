@@ -1,5 +1,9 @@
 import java.io.IOException;
+
+import Model.PictureModel.Picture;
+import Model.PictureModel.PictureCreator;
 import org.junit.Test;
+import Model.PixelModel.Color;
 
 /**
  * Tests the picture creator test.

@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+import Model.PixelModel.Color;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import org.junit.Test;
 public class ColorTest {
 
     /**
-     * Tests the get Color Method.
+     * Tests the get Pixel.Pixel.Color Method.
      */
     @Test
     public void testGetColor() {
