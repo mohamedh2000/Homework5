@@ -253,4 +253,8 @@ public class Picture {
     this.pixelToRow = workingMap;
   }
 
+  public void addLayer() {
+    this.
+  }
+
 }
