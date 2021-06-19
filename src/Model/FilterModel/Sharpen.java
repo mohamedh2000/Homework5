@@ -1,14 +1,12 @@
 package Model.FilterModel;
 
-import Model.PictureModel.Picture;
-
+import Model.LayerModel.Layer;
 import java.awt.image.Kernel;
 
-
-public class Sharpen implements Filter {
+public class Sharpen extends filterMethods {
 
   @Override
-  public void filter(Picture p) {
+  public void filter(Layer layer) {
     float[] sharpenData = new float[25];
     sharpenData[0] = (float) (-1.0 / 8.0);
     sharpenData[1] = (float) (-1.0 / 8.0);
@@ -37,6 +35,6 @@ public class Sharpen implements Filter {
     sharpenData[24] = (float) (-1.0 / 8.0);
 
     Kernel sharpen = new Kernel(5, 5, sharpenData);
-    p.kernelApplyHelper(sharpen);
+    kernelApplyHelper(sharpen, layer);
   }
 }

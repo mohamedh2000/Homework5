@@ -1,13 +1,12 @@
 package Model.FilterModel;
 
-import Model.PictureModel.Picture;
-
+import Model.LayerModel.Layer;
 import java.util.HashMap;
 
-public class Sepia implements Filter {
+public class Sepia extends filterMethods {
 
   @Override
-  public void filter(Picture p) {
+  public void filter(Layer layer) {
 
     HashMap<Integer, Double> sepiaFilter = new HashMap<>(9);
     sepiaFilter.put(11, 0.393);
@@ -20,6 +19,6 @@ public class Sepia implements Filter {
     sepiaFilter.put(23, 0.534);
     sepiaFilter.put(33, 0.131);
 
-    p.linearApplyHelper(sepiaFilter);
+    linearApplyHelper(sepiaFilter, layer);
   }
 }

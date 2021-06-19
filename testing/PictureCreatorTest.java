@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-import Model.PictureModel.Picture;
+import Model.LayerModel.Layer;
 import Model.PictureModel.PictureCreator;
 import org.junit.Test;
 import Model.PixelModel.Color;
@@ -17,8 +17,8 @@ public class PictureCreatorTest {
   @Test
   public void checkerBoard() throws IOException {
       PictureCreator creator = new PictureCreator();
-      Picture checkerBoardPic = creator.checkerBoard(new Color(255,255,255), new Color(0,0,0), 500, 1000, 100);
-      checkerBoardPic.pictureToPPM("CheckerboardNEW");
+      Layer checkerBoardPic = creator.checkerBoard(new Color(255,255,255), new Color(0,0,0), 500, 1000, 100);
+      checkerBoardPic.exportLayer("ppm");
   }
 
 }

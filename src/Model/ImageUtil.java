@@ -1,7 +1,6 @@
 package Model;
 
 import Model.LayerModel.Layer;
-import Model.PictureModel.Picture;
 import Model.PixelModel.Pixel;
 import Model.PixelModel.Color;
 import Model.PixelModel.Position;
@@ -23,7 +22,6 @@ import java.io.FileInputStream;
  */
 public class ImageUtil {
 
-
     public static void setPixelistMap(Scanner sc, ArrayList<Pixel> pixelList, HashMap<Integer,
             ArrayList<Pixel>> map, int width, int height) {
         for (int i = 0; i < height; i++) {
@@ -41,12 +39,8 @@ public class ImageUtil {
         }
     }
 
-    /**
-     * Read an image file in the PPM format and print the colors.
-     *
-     * @param filename the path of the file.
-     */
-    public static Picture readPPM(String filename) {
+
+    public static Layer readPPM(String filename) {
         Scanner sc;
 
         try {
@@ -84,52 +78,10 @@ public class ImageUtil {
         HashMap<Integer, ArrayList<Pixel>> map = new HashMap<>();
 
         setPixelistMap(sc, pixels, map, width, height);
-
-        return new Picture(pixels, map, width, height);
+        return new Layer(pixels, map, width, height);
     }
 
-    public static Layer readPPMLayer(String filename) {
-        Scanner sc;
-
-        try {
-            sc = new Scanner(new FileInputStream(filename));
-        } catch (FileNotFoundException e) {
-            System.out.println("File " + filename + " not found!");
-            return null;
-        }
-        StringBuilder builder = new StringBuilder();
-        //read the file line by line, and populate a string. This will throw away any comment lines
-        while (sc.hasNextLine()) {
-            String s = sc.nextLine();
-            if (s.charAt(0) != '#') {
-                builder.append(s + System.lineSeparator());
-            }
-        }
-
-        //now set up the scanner to read from the string we just built
-        sc = new Scanner(builder.toString());
-
-        String token;
-
-        token = sc.next();
-        if (!token.equals("P3")) {
-            System.out.println("Invalid PPM file: plain RAW file should begin with P3");
-        }
-        int width = sc.nextInt();
-        System.out.println("Width of image: " + width);
-        int height = sc.nextInt();
-        System.out.println("Height of image: " + height);
-        int maxValue = sc.nextInt();
-        System.out.println("Maximum value of a color in this file (usually 256): " + maxValue);
-
-        ArrayList<Pixel> pixels = new ArrayList<>();
-        HashMap<Integer, ArrayList<Pixel>> map = new HashMap<>();
-
-        setPixelistMap(sc, pixels, map, width, height);
-        return new Layer(pixels, width, height);
-    }
-
-    public static Layer readJPEGPNGLayer(String filename) throws IOException {
+    public static Layer readJPEGPNG(String filename) throws IOException {
         File f = new File(filename);
         BufferedImage image = ImageIO.read(f);
 

@@ -1,12 +1,11 @@
 package Model.FilterModel;
 
-import Model.PictureModel.Picture;
-
+import Model.LayerModel.Layer;
 import java.util.HashMap;
 
-public class Greyscale implements Filter {
+public class Greyscale extends filterMethods {
 
-  public void filter(Picture p) {
+  public void filter(Layer layer) {
     HashMap<Integer, Double> greyscaleFilter = new HashMap<>(9);
     greyscaleFilter.put(11, 0.2126);
     greyscaleFilter.put(21, 0.7152);
@@ -18,7 +17,7 @@ public class Greyscale implements Filter {
     greyscaleFilter.put(23, 0.7152);
     greyscaleFilter.put(33, 0.0722);
 
-    p.linearApplyHelper(greyscaleFilter);
+    linearApplyHelper(greyscaleFilter, layer);
   }
 
 }

@@ -22,14 +22,14 @@ public class LayerTest {
 
     @Test
     public void testJpegPngRead() throws IOException { //export top most layer
-        Layer aenamiLayer = new ImageUtil().readJPEGPNGLayer("aenami.jpeg");
+        Layer aenamiLayer = new ImageUtil().readJPEGPNG("aenami.jpeg");
         aenamiLayer.exportLayer("png");
     }
 
     @Test
     public void blend() throws IOException {
-        Layer rainbowLayer = new ImageUtil().readPPMLayer("rainbow.ppm");
-        Layer koalaScaledLayer = new ImageUtil().readPPMLayer("koalaScaled.ppm");
+        Layer rainbowLayer = new ImageUtil().readPPM("rainbow.ppm");
+        Layer koalaScaledLayer = new ImageUtil().readPPM("koalaScaled.ppm");
         ArrayList<Layer> blendLayers = new ArrayList<>();
         blendLayers.add(rainbowLayer);
         koalaScaledLayer.blend(blendLayers);

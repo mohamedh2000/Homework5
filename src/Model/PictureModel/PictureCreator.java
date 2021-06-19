@@ -1,5 +1,6 @@
 package Model.PictureModel;
 
+import Model.LayerModel.Layer;
 import Model.PixelModel.Pixel;
 import Model.PixelModel.Color;
 import Model.PixelModel.Position;
@@ -19,7 +20,7 @@ public class PictureCreator {
      * @param loColor An ArrayList of Colors with one color for each pixel.
      * @return A picture.
      */
-    public Picture makePicture(int width, int height, ArrayList<Color> loColor) {
+    public Layer makePicture(int width, int height, ArrayList<Color> loColor) {
         ArrayList<Pixel> loPixel = new ArrayList<Pixel>();
         HashMap<Integer, ArrayList<Pixel>> pixelToRow = new HashMap<>();
         int k = 0;
@@ -36,7 +37,7 @@ public class PictureCreator {
         for (Integer i : pixelToRow.keySet()) {
             picturePixels.addAll(pixelToRow.get(i));
         }
-        return new Picture(picturePixels, pixelToRow, width, height);
+        return new Layer(picturePixels, pixelToRow, width, height);
     }
 
     /**
@@ -51,7 +52,7 @@ public class PictureCreator {
      * @return The checkerboard picture.
      */
 
-    public Picture checkerBoard(Color color1, Color color2, int width, int height, int tileSize) {
+    public Layer checkerBoard(Color color1, Color color2, int width, int height, int tileSize) {
         if ((width % tileSize) != 0 || (height % tileSize) != 0) {
             throw new IllegalArgumentException("tileSize is invalid");
         }
@@ -62,7 +63,6 @@ public class PictureCreator {
         for (int h = 0; h < height; h++) {
             map.put(h, new ArrayList<>());
             if (h % tileSize == 0) {
-                System.out.println("H has reached a limit");
                 applyColor1 = !applyColor1;
             }
             for (int j = 0; j < width; j++) {
