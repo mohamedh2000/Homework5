@@ -3,6 +3,8 @@ package Model.LayerModel;
 import Model.PixelModel.Color;
 import Model.PixelModel.Pixel;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,17 +156,25 @@ public class Layer extends Export {
         load(newPixelList);
     }
 
-    public void exportLayer(String fileType) throws IOException {
+    public String exportLayer(String fileType) throws IOException {
         switch (fileType) {
             case ("jpeg"):
-                pictureToJPEG(this.name, this.width, this.height, this.pixelPositions);
-                break;
+                return pictureToJPEG(this.name, this.width, this.height, this.pixelPositions);
             case ("png"):
-                pictureToPNG(this.name, this.width, this.height, this.pixelPositions);
-                break;
+                return pictureToPNG(this.name, this.width, this.height, this.pixelPositions);
             default:
-                pictureToPPM(this.name, this.width, this.height, this.pixelPositions);
+                return pictureToPPM(this.name, this.width, this.height, this.pixelPositions);
         }
     }
 
+    public void scrapeInfo(String filePath, File txtFile) {
+        try {
+            FileWriter writer = new FileWriter(txtFile);
+            String scrapedInfo = this.name + " " + this.visible + " " + this.currentLayer + " " + filePath;
+            writer.write(scrapedInfo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //#TODO:PUT SHIT TON TRY CATCHES AND GO BACK AND GET EDGE CASES
 }

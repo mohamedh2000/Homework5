@@ -17,7 +17,7 @@ public abstract class Export {
      * @param fileName The name of the ppm file.
      * @throws IOException
      */
-    public void pictureToPPM(String fileName, int width, int height,
+    public String pictureToPPM(String fileName, int width, int height,
                              HashMap<Integer, ArrayList<Pixel>> pixelToRow) throws IOException {
         FileWriter ppmObjectWriter = new FileWriter(fileName + ".ppm");
 
@@ -34,6 +34,7 @@ public abstract class Export {
             ppmObjectWriter.write(rowString);
         }
         ppmObjectWriter.close();
+        return new File(fileName + ".ppm").getAbsolutePath();
     }
 
     /**
@@ -42,10 +43,11 @@ public abstract class Export {
      * @param fileName The name of the ppm file.
      * @throws IOException
      */
-    public void pictureToJPEG(String fileName, int width, int height,
+    public String pictureToJPEG(String fileName, int width, int height,
                               HashMap<Integer, ArrayList<Pixel>> pixelToRow) throws IOException {
         BufferedImage img = writeBufferedImage(width, height, pixelToRow);
         ImageIO.write(img, "jpeg", new File(fileName + ".jpeg"));
+        return new File(fileName + ".jpeg").getAbsolutePath();
     }
 
     public BufferedImage writeBufferedImage(int width, int height, HashMap<Integer, ArrayList<Pixel>> pixelToRow) {
@@ -69,10 +71,11 @@ public abstract class Export {
      * @param fileName The name of the ppm file.
      * @throws IOException
      */
-    public void pictureToPNG(String fileName, int width, int height,
+    public String pictureToPNG(String fileName, int width, int height,
                              HashMap<Integer, ArrayList<Pixel>> pixelToRow) throws IOException {
         BufferedImage img = writeBufferedImage(width, height, pixelToRow);
         ImageIO.write(img, "png", new File(fileName + ".png"));
+        return new File(fileName + ".png").getAbsolutePath();
     }
 
 }
