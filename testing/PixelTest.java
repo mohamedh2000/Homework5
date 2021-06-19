@@ -1,10 +1,10 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import Model.PixelModel.Color;
+import Model.PixelModel.Pixel;
+import Model.PixelModel.Position;
 import java.util.ArrayList;
 import java.util.Arrays;
-import Model.PixelModel.Color;
-import Model.PixelModel.Position;
-import Model.PixelModel.Pixel;
 import org.junit.Test;
 
 /**

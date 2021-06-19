@@ -27,6 +27,16 @@ public class ProjectController implements IProjectController {
         this.ap = ap;
     }
 
+    public ProjectController(Readable rd, Appendable ap) {
+        if(rd == null || ap == null) {
+            throw new IllegalArgumentException("Inputs are invalid.");
+        }
+
+        this.rd = rd;
+        this.ap = ap;
+    }
+
+
     public ProjectController(String pathToTextFile, Readable rd, Appendable ap) {
        File inputtedTextFile = new File(pathToTextFile);
        if(!inputtedTextFile.exists()) {
@@ -132,7 +142,7 @@ public class ProjectController implements IProjectController {
     }
 
 
-    private void commands() throws IOException {
+    public void commands() throws IOException {
         Project proj = new Project();
         Scanner scan = new Scanner(rd);
         CommandTypes currCommand = EMPTY;

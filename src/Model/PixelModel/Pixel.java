@@ -3,28 +3,29 @@ package Model.PixelModel;
 import java.util.ArrayList;
 
 public class Pixel {
-    private Color color;
-    private final Position position;
 
-    public Pixel(Color color, Position position) {
-        this.color = color;
-        this.position = position;
-    }
+  private Color color;
+  private final Position position;
 
-    public ArrayList<Integer> getColors() {
-        return this.color.getColors();
-    }
+  public Pixel(Color color, Position position) {
+    this.color = color;
+    this.position = position;
+  }
 
-    public Position getPosition() {
-        return this.position;
-    }
+  public ArrayList<Integer> getColors() {
+    return this.color.getColors();
+  }
 
-    public void setColors(ArrayList<Integer> newColors) {
-        System.out.println(newColors);
-        this.color = new Color(newColors.get(0), newColors.get(1), newColors.get(2));
-    }
+  public Position getPosition() {
+    return this.position;
+  }
 
-    public String pixelToColorsString() {
-        return this.color.toString();
-    }
+  public void setColors(ArrayList<Integer> newColors) {
+    System.out.println(newColors);
+    this.color = new Color(newColors.get(0), newColors.get(1), newColors.get(2));
+  }
+
+  public String pixelToColorsString() {
+    return this.color.toString();
+  }
 }

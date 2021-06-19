@@ -4,53 +4,52 @@ import Model.FilterModel.Greyscale;
 import Model.FilterModel.Sepia;
 import Model.ImageUtil;
 import Model.LayerModel.Layer;
-import org.junit.Test;
-
 import java.io.IOException;
+import org.junit.Test;
 
 /**
  * Tests the picture class.
  */
 public class PictureTest {
 
-    /**
-     * Tests the image blur method.
-     *
-     * @throws IOException If the ppm has a problem being written for some reason.
-     */
-    @Test
-    public void imageBlur() throws IOException {
-        Layer newPic = Model.ImageUtil.readPPM("KoalaScaled.ppm");
+  /**
+   * Tests the image blur method.
+   *
+   * @throws IOException If the ppm has a problem being written for some reason.
+   */
+  @Test
+  public void imageBlur() throws IOException {
+    Layer newPic = Model.ImageUtil.readPPM("KoalaScaled.ppm");
 
-        new Blur().filter(newPic);
-        newPic.changeName("UPDATEDBLURTEST");
-        newPic.exportLayer("jpeg");
-    }
+    new Blur().filter(newPic);
+    newPic.changeName("UPDATEDBLURTEST");
+    newPic.exportLayer("jpeg");
+  }
 
-    /**
-     * Tests to see if the grey scale method works.
-     */
-    @Test
-    public void testGreyscale() throws IOException {
-        Layer newPic = Model.ImageUtil.readPPM("KoalaScaled.ppm");
+  /**
+   * Tests to see if the grey scale method works.
+   */
+  @Test
+  public void testGreyscale() throws IOException {
+    Layer newPic = Model.ImageUtil.readPPM("KoalaScaled.ppm");
 
-        new Greyscale().filter(newPic);
-        newPic.changeName("UPDATEDGREYSCALEDTEST");
-        newPic.exportLayer("jpeg");
+    new Greyscale().filter(newPic);
+    newPic.changeName("UPDATEDGREYSCALEDTEST");
+    newPic.exportLayer("jpeg");
 
-    }
+  }
 
-    /**
-     * Tests the Model.FilterModel.Sepia method.
-     */
-    @Test
-    public void testSepia() throws IOException {
-        Layer newPic = Model.ImageUtil.readPPM("KoalaScaled.ppm");
+  /**
+   * Tests the Model.FilterModel.Sepia method.
+   */
+  @Test
+  public void testSepia() throws IOException {
+    Layer newPic = Model.ImageUtil.readPPM("KoalaScaled.ppm");
 
-        new Sepia().filter(newPic);
-        newPic.changeName("UPDATEDGREYSCALEDTEST");
-        newPic.exportLayer("jpeg");
-    }
+    new Sepia().filter(newPic);
+    newPic.changeName("UPDATEDGREYSCALEDTEST");
+    newPic.exportLayer("jpeg");
+  }
 
 //    /**
 //     * Tests the pictureConstructor
@@ -119,44 +118,44 @@ public class PictureTest {
 //        Picture testPic = new Picture(loPixel, null, 3, 1);
 //    }
 
-    /**
-     * Tests another file for Model.FilterModel.Sepia.
-     */
-    @Test
-    public void testSepia2() {
-        //Picture koalapic = ImageUtil.readPPM("Koala.ppm");
-        //new Sepia().filter(koalapic);
-        //try {
-            //koalapic.pictureToPPM("KoalaSepia");
-        //} catch (IOException e) {
-        //    assertTrue(false);
-        //}
-    }
+  /**
+   * Tests another file for Model.FilterModel.Sepia.
+   */
+  @Test
+  public void testSepia2() {
+    //Picture koalapic = ImageUtil.readPPM("Koala.ppm");
+    //new Sepia().filter(koalapic);
+    //try {
+    //koalapic.pictureToPPM("KoalaSepia");
+    //} catch (IOException e) {
+    //    assertTrue(false);
+    //}
+  }
 
-    /**
-     * Tests another file for GreyScale. Can be found in res folder.
-     */
-    @Test
-    public void testGreyscale2() {
-        //Picture koalapic = ImageUtil.readPPM("koala.ppm");
-        //new Greyscale().filter(koalapic);
-        //try {
-            //koalapic.pictureToPPM("greyScaleKoala");
-        //} catch (IOException e) {
-        //    assertTrue(false);
-        //}
-    }
+  /**
+   * Tests another file for GreyScale. Can be found in res folder.
+   */
+  @Test
+  public void testGreyscale2() {
+    //Picture koalapic = ImageUtil.readPPM("koala.ppm");
+    //new Greyscale().filter(koalapic);
+    //try {
+    //koalapic.pictureToPPM("greyScaleKoala");
+    //} catch (IOException e) {
+    //    assertTrue(false);
+    //}
+  }
 
-    @Test
-    public void testBlur() {
-        Layer spencerpic = ImageUtil.readPPM("koala.ppm");
-        //new Blur().filter(spencerpic);
-        //try {
-            //spencerpic.pictureToPPM("spencerBlur");
-        //}
-        //catch (IOException e) {
-        //    assertTrue(false);
-        //}
-    }
+  @Test
+  public void testBlur() {
+    Layer spencerpic = ImageUtil.readPPM("koala.ppm");
+    //new Blur().filter(spencerpic);
+    //try {
+    //spencerpic.pictureToPPM("spencerBlur");
+    //}
+    //catch (IOException e) {
+    //    assertTrue(false);
+    //}
+  }
 
 }
