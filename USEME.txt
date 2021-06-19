@@ -1,0 +1,28 @@
+SUPPORTED PROGRAMS:
+FILTER - Will filter the current Layer depending on the inputted string.
+    FILTER blur -applies blur filter to current layer
+    FILTER greyscale -applies greyscale filter to current layer
+    FILTER sepia -applies sepia filter to current layer
+    FILTER sharpen -applies sharpen filter to current layer
+
+CURRENT - This will take in a layer name that you want to be current and toggles off the present current lyr
+    CURRENT layerName - Makes this layer the new current layer
+
+VISIBLE - This will toggle the visibility of the layer name inputted.
+    VISIBLE layerName -Toggles the visibility of the given layer
+
+SAVE - EXPORTS the topmost layer in a specific file format.
+    SAVE png - will save the top most layer to png
+    SAVE jpeg - will save the top most layer to png
+    SAVE ppm - will save the top most layer to png
+
+SAVEALL - EXPORTS all of the layers and records file placement and other necessary of the project/layers.
+    SAVEALL png - will save all of the layers in png and create a txtfile with all of their info
+    SAVEALL jpeg - will save all of the layers in jpeg and create a txtfile with all of their info
+    SAVEALL ppm - will save all of the layers in ppm and create a txtfile with all of their info
+
+LOAD - loads a line in the inputted text file. It will load the file in the project.
+    LOAD 'C://users/Desktop/blahblah.ppm' -- This will load this picture/layer into the project and add it in
+
+CREATE - This will create a new fresh layer with the inputted width and height given.
+    CREATE 100 200 --Creates a new Layer which is 100w x 200h

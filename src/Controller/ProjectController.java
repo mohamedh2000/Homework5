@@ -5,7 +5,6 @@ import Model.LayerModel.Layer;
 import Model.Project;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -13,37 +12,19 @@ import static Controller.CommandTypes.*;
 
 public class ProjectController implements IProjectController {
 
-    private File targetLoadFile;
     private Readable rd;
     private Appendable ap;
 
-    public ProjectController(File textFile, Readable rd, Appendable ap) {
-        if(textFile == null || rd == null || ap == null || !textFile.exists()) {
-            throw new IllegalArgumentException("Inputs are invalid.");
-        }
-
-        this.targetLoadFile = textFile;
-        this.rd = rd;
-        this.ap = ap;
-    }
-
     public ProjectController(Readable rd, Appendable ap) {
-        if(rd == null || ap == null) {
-            throw new IllegalArgumentException("Inputs are invalid.");
-        }
-
         this.rd = rd;
         this.ap = ap;
     }
 
-
-    public ProjectController(String pathToTextFile, Readable rd, Appendable ap) {
+    public ProjectController(String pathToTextFile, Appendable ap) {
        File inputtedTextFile = new File(pathToTextFile);
        if(!inputtedTextFile.exists()) {
            throw new IllegalArgumentException("This text file does not exist");
        }
-       this.targetLoadFile = inputtedTextFile;
-       this.rd = rd;
        this.ap = ap;
     }
 
@@ -147,8 +128,8 @@ public class ProjectController implements IProjectController {
         Scanner scan = new Scanner(rd);
         CommandTypes currCommand = EMPTY;
 
-        while (scan.hasNext()) {  //TODO: Look at loadTextFile, we should be reading every line not every word
-            String nextString = scan.next();
+        while (scan.hasNextLine()) {  //TODO: Look at loadTextFile, we should be reading every line not every word
+            String nextString = scan.nextLine();
             switch (currCommand) {
                 case EMPTY:
                     switch (nextString) {
@@ -190,8 +171,6 @@ public class ProjectController implements IProjectController {
                     break;
                 default:
                     System.out.print("Could not ccomplete this command");
-
-
             }
         }
     }
