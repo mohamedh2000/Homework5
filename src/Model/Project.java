@@ -137,9 +137,15 @@ public class Project {
         layers.get(i).toggleCurrentLayer();
       }
     }
+    for(Layer projectLyr : this.layers) {
+      if(lyr.name.equals(projectLyr.name)) {
+        lyr.changeName("Untitled_Layer_" + this.layers.size());
+      }
+    }
     if (lyr.name.equals("Untitled Layer")) {
       lyr.changeName("Untitled_Layer_" + this.layers.size());
     }
+
     if (!lyr.isCurrent()) {
       makeCurrent(lyr.name);
       lyr.toggleCurrentLayer();

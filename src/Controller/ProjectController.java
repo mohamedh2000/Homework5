@@ -95,7 +95,7 @@ public class ProjectController {
                     proj.toggleVisible(layerName);
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + currCommand);
+                    System.out.println("Unexpected value: " + currCommand);
             }
         return null;
     }
@@ -212,7 +212,7 @@ public class ProjectController {
                     }
                     break;
                 default:
-                    System.out.print("Could not ccomplete this command");
+                    System.out.print("Could not complete this command");
             }
         }
     }
