@@ -3,8 +3,15 @@ package Model.FilterModel;
 import Model.LayerModel.Layer;
 import java.awt.image.Kernel;
 
+/**
+ * This will apply a sharpen filter to the given layer.
+ */
 public class Sharpen extends filterMethods {
 
+  /**
+   * Applies a filter to a picture.
+   * @param layer The layer the filter should be applied to
+   */
   @Override
   public void filter(Layer layer) {
     float[] sharpenData = new float[25];

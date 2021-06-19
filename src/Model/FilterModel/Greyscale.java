@@ -3,8 +3,15 @@ package Model.FilterModel;
 import Model.LayerModel.Layer;
 import java.util.HashMap;
 
+/**
+ * This will apply a greyscale filter to a layer.
+ */
 public class Greyscale extends filterMethods {
 
+  /**
+   * Applies a filter to a picture.
+   * @param layer The layer the filter should be applied to
+   */
   public void filter(Layer layer) {
     HashMap<Integer, Double> greyscaleFilter = new HashMap<>(9);
     greyscaleFilter.put(11, 0.2126);

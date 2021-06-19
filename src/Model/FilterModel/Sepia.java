@@ -3,8 +3,15 @@ package Model.FilterModel;
 import Model.LayerModel.Layer;
 import java.util.HashMap;
 
+/**
+ * This will apply a Sepia filter for a given filter.
+ */
 public class Sepia extends filterMethods {
 
+  /**
+   * Applies a filter to a picture.
+   * @param layer The layer the filter should be applied to
+   */
   @Override
   public void filter(Layer layer) {
 

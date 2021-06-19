@@ -3,8 +3,15 @@ package Model.FilterModel;
 import Model.LayerModel.Layer;
 import java.awt.image.Kernel;
 
+/**
+ * This class will be called to blur an image.
+ */
 public class Blur extends filterMethods {
 
+  /**
+   * This passes in the specific blur kernel which will apply to every pixel in the image.
+   * @param layer The layer the filter should be applied to.
+   */
   @Override
   public void filter(Layer layer) {
     float[] blurData = new float[9];

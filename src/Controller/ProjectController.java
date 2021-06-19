@@ -10,16 +10,29 @@ import java.util.Scanner;
 
 import static Controller.CommandTypes.*;
 
-public class ProjectController implements IProjectController {
+/**
+ * This class will be used as a controller. It will connect with the model and a view which at the moment is console.
+ */
+public class ProjectController {
 
     private Readable rd;
     private Appendable ap;
 
+    /**
+     * Creates a new ProjectController class and it takes in only a Readable and an appendable.
+     * @param rd The readable such as console or a file.
+     * @param ap The Appendable/output such as console.
+     */
     public ProjectController(Readable rd, Appendable ap) {
         this.rd = rd;
         this.ap = ap;
     }
 
+    /**
+     * Creates a new ProjectController class and it takes in a file path and an appendable.
+     * @param pathToTextFile A string with the path to the file/script.
+     * @param ap The Output such as console.
+     */
     public ProjectController(String pathToTextFile, Appendable ap) {
        File inputtedTextFile = new File(pathToTextFile);
        if(!inputtedTextFile.exists()) {
@@ -28,7 +41,13 @@ public class ProjectController implements IProjectController {
        this.ap = ap;
     }
 
-    //THEY CAN DO THIS INTERACTIVELY, SO INPUT CAN BE CONSOLE AND OUTPUT CAN BE SCANNER
+    /**
+     * This will evaluate the current line passed in depending on if its CREATE, FILTER, CURRENT or VISIBILE.
+     * @param proj The project/
+     * @param currCommand The current command.
+     * @param scan The scanner.
+     * @return a Layer or if its CURRENT/VISIBLE it will return null as theres nothing to return.
+     */
     private Layer evaluateLine(Project proj, CommandTypes currCommand, Scanner scan) {
             switch(currCommand) {
                 case EMPTY:
@@ -81,6 +100,13 @@ public class ProjectController implements IProjectController {
         return null;
     }
 
+    /**
+     * This will check to see if the command is to Save the current layer or save all of the layers and produce a txt.
+     * @param currCommand The current command read.
+     * @param scan The Scanner/reader.
+     * @param currentProject The project.
+     * @throws IOException If the write in the export fails for whatever reason.
+     */
     private void saveLine(CommandTypes currCommand, Scanner scan, Project currentProject) throws IOException {
         String fileType = scan.next();
         switch (currCommand) {
@@ -91,6 +117,13 @@ public class ProjectController implements IProjectController {
         }
     }
 
+    /**
+     *
+     * @param scan
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     private Layer loadLayerLine(Scanner scan) throws IllegalArgumentException, IOException {
         if(scan.hasNext()) {
             String fileName = scan.next();
@@ -99,6 +132,12 @@ public class ProjectController implements IProjectController {
         return null;
     }
 
+    /**
+     * This will process data from the passed in fileName and it will load each Layer it can read from the text file.
+     * @param proj The project.
+     * @param fileName The file name of the file.
+     * @throws IOException
+     */
     private void loadTextFile(Project proj, String fileName) throws IOException {
         File file = new File(fileName);
         Scanner myReader = new Scanner(file);
@@ -122,7 +161,10 @@ public class ProjectController implements IProjectController {
         myReader.close();
     }
 
-
+    /**
+     * The main method will use this commands function in order to evaluate the passed in lines.
+     * @throws IOException
+     */
     public void commands() throws IOException {
         Project proj = new Project();
         Scanner scan = new Scanner(rd);

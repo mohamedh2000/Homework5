@@ -124,6 +124,10 @@ public class Project {
     this.layers.add(newLayer);
   }
 
+  /**
+   * This will add a layer to the project.
+   * @param lyr The layer to be added.
+   */
   public void addLayer(Layer lyr) { //fix the naming when adding
     if (lyr == null) {
       throw new IllegalArgumentException("Cannot add a null layer");
@@ -143,6 +147,10 @@ public class Project {
     this.layers.add(lyr);
   }
 
+  /**
+   * This will traverse the lsit of layers and make the named layer current.
+   * @param layerName The name of the layer.
+   */
   public void makeCurrent(String layerName) {
     getCurrentLayer().toggleCurrentLayer();
     for (Layer lyr : this.layers) {
@@ -153,6 +161,10 @@ public class Project {
     }
   }
 
+  /**
+   * This will toggle the visibility of layer given.
+   * @param layerName The layerName of the layer we want to change.
+   */
   public void toggleVisible(String layerName) {
     for (Layer lyr : this.layers) {
       if (lyr.name.equals(layerName)) {
@@ -162,6 +174,10 @@ public class Project {
     }
   }
 
+  /**
+   * This will get the current layer of the project.
+   * @return Returns the currentLayer.
+   */
   public Layer getCurrentLayer() {
     for (int i = 0; i < layers.size(); i++) {
       if (layers.get(i).isCurrent()) {
@@ -171,6 +187,10 @@ public class Project {
     throw new IllegalArgumentException("no current layer!");
   }
 
+  /**
+   * Applies a filter on the current layer given a file type.
+   * @param filterType A file type is any that are supported in the FilterModel.
+   */
   public void applyFilter(String filterType) {
     switch (filterType) {
       case "blur":
