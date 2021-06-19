@@ -1,20 +1,12 @@
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
 
 import Model.FilterModel.Blur;
 import Model.FilterModel.Greyscale;
 import Model.FilterModel.Sepia;
 import Model.ImageUtil;
 import Model.LayerModel.Layer;
-import Model.PixelModel.Pixel;
-import Model.PixelModel.Color;
-import Model.PixelModel.Position;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Tests the picture class.

@@ -39,6 +39,38 @@ public class ImageUtil {
         }
     }
 
+    public static String getFileType(String fileName) {
+        String fileType = fileName.substring(fileName.length() - 3);
+        switch(fileType) {
+            case "png":
+                return "png";
+            case "ppm":
+                return "ppm";
+            default:
+                String tryII = fileName.substring(fileName.length() - 4);
+                if(tryII.equals("jpeg")) {
+                    return "jpeg";
+                }
+                else {
+                    throw new IllegalArgumentException("File type is unaccepted.");
+                }
+        }
+    }
+
+    public static Layer readFile(String fileName) throws IOException {
+        String fileType = getFileType(fileName);
+        switch (fileType) {
+            case "png":
+                return readJPEGPNG(fileName);
+            case "jpeg":
+                return readJPEGPNG(fileName);
+            case "ppm":
+                return readPPM(fileName);
+            default:
+                return null;
+        }
+    }
+
 
     public static Layer readPPM(String filename) {
         Scanner sc;
