@@ -1,3 +1,2 @@
 Untitled_Project
-SAVEALLTEST true true /Users/hussein/Desktop/AssignmentV/code/SAVEALLTEST.jpeg
-SAVEALLTESTII true true /Users/hussein/Desktop/AssignmentV/code/SAVEALLTESTII.jpeg
+Untitled_Layer_0 true true C:\Users\spenc\Desktop\Northeastern Classes\CS3500\Projects\Homework5\Untitled_Layer_0.png
