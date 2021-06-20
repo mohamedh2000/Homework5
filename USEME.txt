@@ -21,8 +21,9 @@ SAVEALL - EXPORTS all of the layers and records file placement and other necessa
     SAVEALL jpeg - will save all of the layers in jpeg and create a txtfile with all of their info
     SAVEALL ppm - will save all of the layers in ppm and create a txtfile with all of their info
 
-LOAD - loads a line in the inputted text file. It will load the file in the project.
+LOAD - loads a line in the inputted text file with the option to choose a name. It will load the file in the project.
     LOAD 'C://users/Desktop/blahblah.ppm' -- This will load this picture/layer into the project and add it in
+    LOAD 'C://users/Desktop/blahblah.ppm' Name -- This will load this picture/layer into the project with the name "Name" and add it in.
 
 CREATE - This will create a new fresh layer with the inputted width and height given.
     CREATE layer1 100 200 --Creates a new Layer which is 100w x 200h called layer1.
