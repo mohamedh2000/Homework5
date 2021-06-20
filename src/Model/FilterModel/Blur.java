@@ -10,6 +10,7 @@ public class Blur extends filterMethods {
 
   /**
    * This passes in the specific blur kernel which will apply to every pixel in the image.
+   *
    * @param layer The layer the filter should be applied to.
    */
   @Override

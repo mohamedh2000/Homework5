@@ -18,14 +18,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-/** Controls a Project.
- *
+/**
+ * Controls a Project.
  */
 public class ProjectController {
 
   private Readable rd;
   private Appendable ap;
 
+  /**
+   * A public controller constructor that takes in the file naem and an appendable.
+   *
+   * @param fileName The file name of where to read the script and where it will output
+   * @param ap       The appendable/output
+   * @throws FileNotFoundException
+   */
   public ProjectController(String fileName, Appendable ap) throws FileNotFoundException {
     if (fileName == null || ap == null) {
       throw new IllegalArgumentException("Inputs are invalid.");
@@ -35,6 +42,12 @@ public class ProjectController {
     this.ap = ap;
   }
 
+  /**
+   * Takes in a readable and an appendable and creates a controller.
+   *
+   * @param rd The readable/inputs
+   * @param ap The appendable/output
+   */
   public ProjectController(Readable rd, Appendable ap) {
     if (rd == null || ap == null) {
       throw new IllegalArgumentException("Inputs are invalid.");
@@ -44,14 +57,12 @@ public class ProjectController {
     this.ap = ap;
   }
 
-
-  //THEY CAN DO THIS INTERACTIVELY, SO INPUT CAN BE CONSOLE AND OUTPUT CAN BE SCANNER
-
-  /** Evaluates Create, Filter, Current, and Visible commands.
+  /**
+   * Evaluates Create, Filter, Current, and Visible commands.
    *
-   * @param proj the project the command is being used on/
+   * @param proj        the project the command is being used on/
    * @param currCommand The type of command being used.
-   * @param scan A scanner containing the arguments of the command.
+   * @param scan        A scanner containing the arguments of the command.
    * @return
    */
   private Layer evaluateLine(Project proj, CommandTypes currCommand, Scanner scan) {
@@ -116,27 +127,29 @@ public class ProjectController {
     return null;
   }
 
-  /** Saves either a single layer or all the layers of a project.
+  /**
+   * Saves either a single layer or all the layers of a project.
    *
-   * @param currCommand The current commandType,
-   * @param scan A scanner containing the fileType.
+   * @param currCommand    The current commandType,
+   * @param scan           A scanner containing the fileType.
    * @param currentProject The current project being saved.
    * @throws IOException
    */
   private void saveLine(CommandTypes currCommand, Scanner scan, Project currentProject)
       throws IOException {
     if (scan.hasNext()) {
-    String fileType = scan.next();
-    switch (currCommand) {
-      case SAVE:
-        currentProject.save(fileType);
-      default:
-        currentProject.saveAll(fileType);
-    }
+      String fileType = scan.next();
+      switch (currCommand) {
+        case SAVE:
+          currentProject.save(fileType);
+        default:
+          currentProject.saveAll(fileType);
+      }
     }
   }
 
-  /** Loads an image into a new layer in a project.
+  /**
+   * Loads an image into a new layer in a project.
    *
    * @param scan A scanner with the filename and (Optional: the name of the layer).
    * @return
@@ -157,10 +170,10 @@ public class ProjectController {
     return null;
   }
 
-  /** Loads a text file into the controller/
+  /**
+   * Loads a text file into the controller/
    *
-   *
-   * @param proj The project being loaded into.
+   * @param proj     The project being loaded into.
    * @param fileName The name of the textfile.
    * @throws IOException
    */
@@ -186,7 +199,8 @@ public class ProjectController {
     myReader.close();
   }
 
-  /** Completes commands on a Project Controller.
+  /**
+   * Completes commands on a Project Controller.
    *
    * @throws IOException
    */

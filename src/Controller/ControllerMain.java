@@ -5,18 +5,19 @@ import java.io.InputStreamReader;
 
 public class ControllerMain {
 
-  /** Runs Commands on a Project Controller.
+  /**
+   * Runs Commands on a Project Controller.
    *
    * @param args The commands inputted.
    */
   public static void main(String[] args) {
-    ProjectController controller = new ProjectController(new InputStreamReader(System.in), System.out);
-    try{
+    ProjectController controller = new ProjectController(new InputStreamReader(System.in),
+        System.out);
+    try {
       controller.commands();
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
 
     }
 
-    }
+  }
 }

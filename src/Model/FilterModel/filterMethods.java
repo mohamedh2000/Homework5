@@ -11,7 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This abstracts the necessary and possible methods that can be abstracted for all of the subclasses to use.
+ * This abstracts the necessary and possible methods that can be abstracted for all of the
+ * subclasses to use.
  */
 public abstract class filterMethods implements Filter {
 

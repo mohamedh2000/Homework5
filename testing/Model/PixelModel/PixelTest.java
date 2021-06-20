@@ -1,3 +1,5 @@
+package Model.PixelModel;
+
 import static org.junit.Assert.assertEquals;
 
 import Model.PixelModel.Color;

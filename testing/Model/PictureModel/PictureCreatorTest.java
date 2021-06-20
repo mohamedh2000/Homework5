@@ -1,5 +1,6 @@
+package Model.PictureModel;
+
 import Model.LayerModel.Layer;
-import Model.PictureModel.PictureCreator;
 import Model.PixelModel.Color;
 import java.io.IOException;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.Test;
  * Tests the picture creator test.
  */
 public class PictureCreatorTest {
+  PictureCreator creator = new PictureCreator();
 
   /**
    * Tests to see if the checkerboard method works.
@@ -16,10 +18,8 @@ public class PictureCreatorTest {
    */
   @Test
   public void checkerBoard() throws IOException {
-    PictureCreator creator = new PictureCreator();
     Layer checkerBoardPic = creator
         .checkerBoard(new Color(255, 255, 255), new Color(0, 0, 0), 500, 1000, 100);
     checkerBoardPic.exportLayer("ppm");
   }
-
 }

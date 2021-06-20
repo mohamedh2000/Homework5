@@ -10,6 +10,7 @@ public class Greyscale extends filterMethods {
 
   /**
    * Applies a filter to a picture.
+   *
    * @param layer The layer the filter should be applied to
    */
   public void filter(Layer layer) {

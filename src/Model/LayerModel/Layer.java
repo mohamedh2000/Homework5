@@ -4,7 +4,6 @@ import Model.PixelModel.Color;
 import Model.PixelModel.Pixel;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -132,6 +131,15 @@ public class Layer extends Export {
    */
   public int getWidth() {
     return this.width;
+  }
+
+  /**
+   * Returns the visibility of the Layer class.
+   *
+   * @return Whether the layer is visible or not.
+   */
+  public boolean getVisibility() {
+    return this.visible;
   }
 
   /**

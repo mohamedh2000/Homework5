@@ -10,6 +10,7 @@ public class Sharpen extends filterMethods {
 
   /**
    * Applies a filter to a picture.
+   *
    * @param layer The layer the filter should be applied to
    */
   @Override
