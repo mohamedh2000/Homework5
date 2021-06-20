@@ -4,6 +4,7 @@ import Model.PixelModel.Color;
 import Model.PixelModel.Pixel;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +37,19 @@ public class Layer extends Export {
     this.pixels = new ArrayList<Pixel>();
     this.pixelPositions = new HashMap<Integer, ArrayList<Pixel>>();
     this.name = "Untitled Layer";
+    this.visible = true;
+    this.width = width;
+    this.height = height;
+    this.currentLayer = true;
+  }
+
+  public Layer(String name, int width, int height) throws IllegalArgumentException {
+    if (width < 0 || height < 0 || name == null) {
+      throw new IllegalArgumentException("This is not a valid width/height");
+    }
+    this.pixels = new ArrayList<Pixel>();
+    this.pixelPositions = new HashMap<Integer, ArrayList<Pixel>>();
+    this.name = name;
     this.visible = true;
     this.width = width;
     this.height = height;
@@ -237,7 +251,7 @@ public class Layer extends Export {
    *
    * @return returns the pixels list for the layer.
    */
-  public List<Pixel> getPixels() {
+  public ArrayList<Pixel> getPixels() {
     return this.pixels;
   }
 
@@ -289,7 +303,7 @@ public class Layer extends Export {
   }
 
   public Boolean isCurrent() {
-    return this.isCurrent();
+    return this.currentLayer;
   }
 
   /**
