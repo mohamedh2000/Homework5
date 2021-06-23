@@ -1,0 +1,9 @@
+create layer1 1280 720
+create layer2 1280 720
+current layer1
+load apple.ppm AppleLayer
+filter blur
+filter blur
+filter blur
+visible layer2
+saveAll jpeg
