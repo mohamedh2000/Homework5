@@ -1,0 +1,9 @@
+load apple.ppm AppleLayer
+create layer2 1280 720
+current AppleLayer
+filter blur
+filter sepia
+filter sharpen
+filter greyscale
+visible layer2
+save png
