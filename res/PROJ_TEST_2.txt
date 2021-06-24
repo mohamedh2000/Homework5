@@ -1,3 +1,0 @@
-PROJ_TEST_2
-SAVEALLTEST true true /Users/hussein/Desktop/AssignmentV/code/SAVEALLTEST.png
-SAVEALLTESTII true true /Users/hussein/Desktop/AssignmentV/code/SAVEALLTESTII.png
