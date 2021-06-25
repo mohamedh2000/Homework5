@@ -15,7 +15,6 @@ public class GraphicInterfaceController implements ActionListener {
     this.v = v;
     this.fileType = FileTypes.PPM;
     v.setListener(this);
-
   }
 
 

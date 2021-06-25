@@ -2,12 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStreamReader;
-import javax.swing.Action;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -18,7 +18,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import model.ImageUtil;
+import model.Project;
 import model.layermodel.Layer;
+
 
 public class GraphicInterface extends JFrame {
 
@@ -37,7 +40,6 @@ public class GraphicInterface extends JFrame {
   private final JButton sepiaButton;
   private final JButton saveButton;
   private final JButton saveAllButton;
-
 
   public GraphicInterface() {
     super();
@@ -74,6 +76,7 @@ public class GraphicInterface extends JFrame {
     sepiaButton.setActionCommand("sepia");
     this.saveButton = new JButton("Save");
     saveButton.setActionCommand("save");
+
     this.saveAllButton = new JButton("Save All");
     saveAllButton.setActionCommand("save all");
 
@@ -105,8 +108,7 @@ public class GraphicInterface extends JFrame {
     pack();
   }
 
-
-  public static void main(String[] args) {
+  public static void main(String[] args, Project p) {
     GraphicInterface frame = new GraphicInterface();
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,6 +117,18 @@ public class GraphicInterface extends JFrame {
     try {
       // Set cross-platform Java L&F (also called "Metal")
       UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+      p.addLayer(ImageUtil.readJPEGPNG("pic1.jpg"));
+
+      BufferedImage image = p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+          p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions());
+      final JLabel imageLabel = new JLabel(new ImageIcon(image));
+      final JScrollPane scroll = new JScrollPane(imageLabel);
+      frame.add(scroll);
+
+
+      //frame.add(new ImageIcon(image));
+
+      //setViewportView(new ImageIcon(image));
 
       //UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName());
 
@@ -154,8 +168,9 @@ public class GraphicInterface extends JFrame {
     sepiaButton.addActionListener(listener);
     saveButton.addActionListener(listener);
     saveAllButton.addActionListener(listener);
+  }
 
-
+  public void addComp(ImageIcon img) {
 
   }
 
