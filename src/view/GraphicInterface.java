@@ -9,6 +9,9 @@ import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -19,7 +22,14 @@ import model.layermodel.Layer;
 
 public class GraphicInterface extends JFrame {
 
-  private final JTextField loadTextField;
+  private final JMenuBar fileTypeMenuBar;
+  private final JMenu fileTypeMenu;
+  private final JMenuItem ppmMenu;
+  private final JMenuItem pngMenu;
+  private final JMenuItem jpegMenu;
+
+  private final JTextField loadFileNameField;
+  private final JTextField loadLayerNameField;
   private final JButton loadButton;
   private final JButton blurButton;
   private final JButton sharpenButton;
@@ -34,17 +44,26 @@ public class GraphicInterface extends JFrame {
     setSize(500, 500);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-    JTextField txtFld = new JTextField(30);
-    this.loadTextField = txtFld;
+    this.fileTypeMenuBar = new JMenuBar();
+    this.fileTypeMenu = new JMenu("Save fileType");
+    this.ppmMenu = new JMenuItem("ppm");
+    ppmMenu.setActionCommand("ppmType");
+    this.pngMenu = new JMenuItem("png");
+    pngMenu.setActionCommand("pngType");
+    this.jpegMenu = new JMenuItem("jpeg");
+    jpegMenu.setActionCommand("jpegType");
+    this.fileTypeMenu.add(this.ppmMenu);
+    this.fileTypeMenu.add(pngMenu);
+    this.fileTypeMenu.add(jpegMenu);
+    this.fileTypeMenuBar.add(fileTypeMenu);
+
+    JTextField loadFileName = new JTextField("Load File name", 20);
+    JTextField loadLayerName = new JTextField("Load Layer name", 20);
+    this.loadFileNameField = loadFileName;
+    this.loadLayerNameField = loadLayerName;
+
     this.loadButton = new JButton("Load");
-
-    this.loadButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-
-      }
-    });
-
+    loadButton.setActionCommand("load");
     this.blurButton = new JButton("Blur");
     blurButton.setActionCommand("blur");
     this.sharpenButton = new JButton("Sharpen");
@@ -62,12 +81,14 @@ public class GraphicInterface extends JFrame {
 
     options.setLayout(new FlowLayout());
 
-    options.add(this.loadTextField, BorderLayout.WEST);
+    options.add(this.loadFileNameField, BorderLayout.WEST);
+    options.add(this.loadLayerNameField, BorderLayout.WEST);
     options.add(this.loadButton, BorderLayout.WEST);
     options.add(this.blurButton, BorderLayout.WEST);
     options.add(this.sharpenButton, BorderLayout.WEST);
     options.add(this.greyscaleButton, BorderLayout.WEST);
     options.add(this.sepiaButton, BorderLayout.WEST);
+    options.add(this.fileTypeMenuBar, BorderLayout.NORTH);
     options.add(this.saveButton, BorderLayout.WEST);
     options.add(this.saveAllButton, BorderLayout.WEST);
 
@@ -120,6 +141,13 @@ public class GraphicInterface extends JFrame {
   }
 
   public void setListener(ActionListener listener) {
+    ppmMenu.addActionListener(listener);
+    pngMenu.addActionListener(listener);
+    jpegMenu.addActionListener(listener);
+
+    loadFileNameField.addActionListener(listener);
+    loadLayerNameField.addActionListener(listener);
+    loadButton.addActionListener(listener);
     blurButton.addActionListener(listener);
     sharpenButton.addActionListener(listener);
     greyscaleButton.addActionListener(listener);
@@ -129,6 +157,14 @@ public class GraphicInterface extends JFrame {
 
 
 
+  }
+
+  public String getLoadFileName() {
+    return loadFileNameField.getText();
+  }
+
+  public String getLoadLayerName() {
+    return loadLayerNameField.getText();
   }
 
 
