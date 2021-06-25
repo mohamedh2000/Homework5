@@ -41,6 +41,8 @@ public class GraphicInterface extends JFrame {
   private final JButton saveButton;
   private final JButton saveAllButton;
 
+  private JScrollPane scrollPane;
+
   public GraphicInterface() {
     super();
     setSize(500, 500);
@@ -96,10 +98,9 @@ public class GraphicInterface extends JFrame {
     options.add(this.saveAllButton, BorderLayout.WEST);
 
     JList<Layer> listScrollPane = new JList<Layer>();
-    JScrollPane pictureScrollPane = new JScrollPane();
 
     JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-        listScrollPane, pictureScrollPane);
+        listScrollPane, scrollPane);
 
     splitPane.setDividerLocation(150);
 
@@ -180,6 +181,14 @@ public class GraphicInterface extends JFrame {
 
   public String getLoadLayerName() {
     return loadLayerNameField.getText();
+  }
+
+  public JScrollPane getScrollPane() {
+    return scrollPane;
+  }
+
+  public void setScrollPane(JScrollPane sp) {
+    this.scrollPane = sp;
   }
 
 
