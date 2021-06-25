@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import model.Project;
-import model.filtermodel.Blur;
 import view.GraphicInterface;
 
 public class GraphicInterfaceController implements ActionListener {
