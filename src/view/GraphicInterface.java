@@ -1,11 +1,11 @@
 package view;
 
-import controller.ProjectController;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.InputStreamReader;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -28,6 +28,7 @@ public class GraphicInterface extends JFrame {
   private final JButton saveButton;
   private final JButton saveAllButton;
 
+
   public GraphicInterface() {
     super();
     setSize(500, 500);
@@ -45,18 +46,17 @@ public class GraphicInterface extends JFrame {
     });
 
     this.blurButton = new JButton("Blur");
+    blurButton.setActionCommand("blur");
     this.sharpenButton = new JButton("Sharpen");
+    sharpenButton.setActionCommand("sharpen");
     this.greyscaleButton = new JButton("Greyscale");
+    greyscaleButton.setActionCommand("sharpen");
     this.sepiaButton = new JButton("Sepia");
-    this.saveButton = new JButton("save");
-    this.saveAllButton = new JButton("saveAll");
-
-    blurButton.addActionListener(new BlurButtonListener());
-    sharpenButton.addActionListener(new SharpenButtonListener());
-    greyscaleButton.addActionListener(new GreyscaleButtonListener());
-    sepiaButton.addActionListener(new SepiaButtonListenerListener());
-    saveButton.addActionListener(new SaveButtonListener());
-    saveAllButton.addActionListener(new SaveAllButtonListener());
+    sepiaButton.setActionCommand("sepia");
+    this.saveButton = new JButton("Save");
+    saveButton.setActionCommand("save");
+    this.saveAllButton = new JButton("Save All");
+    saveAllButton.setActionCommand("save all");
 
     JPanel options = new JPanel();
 
@@ -83,6 +83,7 @@ public class GraphicInterface extends JFrame {
     add(splitPane, BorderLayout.CENTER);
     pack();
   }
+
 
   public static void main(String[] args) {
     GraphicInterface frame = new GraphicInterface();
@@ -118,54 +119,17 @@ public class GraphicInterface extends JFrame {
 
   }
 
+  public void setListener(ActionListener listener) {
+    blurButton.addActionListener(listener);
+    sharpenButton.addActionListener(listener);
+    greyscaleButton.addActionListener(listener);
+    sepiaButton.addActionListener(listener);
+    saveButton.addActionListener(listener);
+    saveAllButton.addActionListener(listener);
 
-}
 
-class BlurButtonListener implements ActionListener {
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.print("Blur picture\n");
-  }
-}
-
-class SharpenButtonListener implements ActionListener {
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.print("Sharpen picture\n");
-  }
-}
-
-class GreyscaleButtonListener implements ActionListener {
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.print("Greyscale picture\n");
-  }
-}
-
-class SepiaButtonListenerListener implements ActionListener {
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.print("Sepia picture\n");
-  }
-}
-
-class SaveButtonListener implements ActionListener {
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.print("Save Layer\n");
 
   }
-}
 
-class SaveAllButtonListener implements ActionListener {
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    System.out.print("Save All Layers\n");
-  }
 }
