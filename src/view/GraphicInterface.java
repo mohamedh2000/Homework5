@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -31,6 +32,9 @@ public class GraphicInterface extends JFrame {
   private final JMenuItem pngMenu;
   private final JMenuItem jpegMenu;
 
+  private final JMenuBar layersMenuBar;
+  private final JMenu layersMenu;
+
   private final JTextField loadFileNameField;
   private final JTextField loadLayerNameField;
   private final JButton loadButton;
@@ -45,7 +49,7 @@ public class GraphicInterface extends JFrame {
 
   public GraphicInterface() {
     super();
-    setSize(500, 500);
+    setSize(10, 500);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     this.fileTypeMenuBar = new JMenuBar();
@@ -56,6 +60,11 @@ public class GraphicInterface extends JFrame {
     pngMenu.setActionCommand("pngType");
     this.jpegMenu = new JMenuItem("jpeg");
     jpegMenu.setActionCommand("jpegType");
+
+    this.layersMenuBar = new JMenuBar();
+    this.layersMenu = new JMenu("Current Layer");
+    this.layersMenuBar.add(layersMenu);
+
     this.fileTypeMenu.add(this.ppmMenu);
     this.fileTypeMenu.add(pngMenu);
     this.fileTypeMenu.add(jpegMenu);
@@ -96,6 +105,7 @@ public class GraphicInterface extends JFrame {
     options.add(this.fileTypeMenuBar, BorderLayout.NORTH);
     options.add(this.saveButton, BorderLayout.WEST);
     options.add(this.saveAllButton, BorderLayout.WEST);
+    options.add(this.layersMenuBar, BorderLayout.NORTH);
 
     JList<Layer> listScrollPane = new JList<Layer>();
 
@@ -189,6 +199,13 @@ public class GraphicInterface extends JFrame {
 
   public void setScrollPane(JScrollPane sp) {
     this.scrollPane = sp;
+  }
+
+  public void addLayerMenuItem(String layerName, ActionListener listener) {
+    JButton newButton = new JButton(getLoadLayerName());
+    newButton.setActionCommand("Layers" + layerName);
+    newButton.addActionListener(listener);
+    this.layersMenu.add(newButton);
   }
 
 

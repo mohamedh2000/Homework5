@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import model.Project;
+import model.layermodel.Layer;
 import view.GraphicInterface;
 
 public class GraphicInterfaceController implements ActionListener {
@@ -35,9 +36,10 @@ public class GraphicInterfaceController implements ActionListener {
         String layerName = v.getLoadLayerName();
         try {
           p.loadFile(layerName, true, true, filename);
+          v.addLayerMenuItem(layerName, this);
         }
         catch (IOException invfile) {
-          System.out.print("Could not load this file.");
+          System.out.print("Could not load this file.\n");
         }
         break;
       case "blur" :
@@ -53,14 +55,39 @@ public class GraphicInterfaceController implements ActionListener {
         p.applyFilter("sepia");
         break;
       case "save" :
-        saveHelper();
+        this.saveHelper();
         break;
       case "save all" :
-        //save all
+        this.saveAllHelper();
         break;
-      default: //Do something here
+      default:
+        for (Layer l: p.layers) {
+          if (l.name.equals(e.getActionCommand())) {
+            p.makeCurrent(e.getActionCommand());
+          }
+        }
      }
 
+  }
+
+  private void saveAllHelper() {
+    try {
+      switch (this.fileType) {
+        case PPM:
+          p.saveAll("ppm");
+          break;
+        case PNG:
+          p.saveAll("png");
+          break;
+        case JPEG:
+          p.saveAll("jpeg");
+          break;
+        default: //Do nothing
+      }
+    }
+    catch(IOException saveException) {
+      System.out.print("Could not save file");
+    }
   }
 
   private void saveHelper() {
