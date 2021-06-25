@@ -18,7 +18,7 @@ public class ControllerMain {
   public static void main(String[] args) throws IOException {
     ProjectController controller = new ProjectController(new InputStreamReader(System.in),
         System.out);
+    controller.view.main(args);
     controller.commands();
-    new GraphicInterface().main(null);
   }
 }

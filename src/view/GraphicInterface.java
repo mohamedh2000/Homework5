@@ -1,9 +1,11 @@
 package view;
 
+import controller.ProjectController;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStreamReader;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -16,6 +18,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import model.layermodel.Layer;
 
 public class GraphicInterface extends JFrame {
+
   private final JTextField loadTextField;
   private final JButton loadButton;
   private final JButton blurButton;
@@ -25,7 +28,7 @@ public class GraphicInterface extends JFrame {
   private final JButton saveButton;
   private final JButton saveAllButton;
 
-  public GraphicInterface(){
+  public GraphicInterface() {
     super();
     setSize(500, 500);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -46,7 +49,14 @@ public class GraphicInterface extends JFrame {
     this.greyscaleButton = new JButton("Greyscale");
     this.sepiaButton = new JButton("Sepia");
     this.saveButton = new JButton("save");
-    this.saveAllButton  = new JButton("saveAll");
+    this.saveAllButton = new JButton("saveAll");
+
+    blurButton.addActionListener(new BlurButtonListener());
+    sharpenButton.addActionListener(new SharpenButtonListener());
+    greyscaleButton.addActionListener(new GreyscaleButtonListener());
+    sepiaButton.addActionListener(new SepiaButtonListenerListener());
+    saveButton.addActionListener(new SaveButtonListener());
+    saveAllButton.addActionListener(new SaveAllButtonListener());
 
     JPanel options = new JPanel();
 
@@ -108,4 +118,54 @@ public class GraphicInterface extends JFrame {
 
   }
 
+
+}
+
+class BlurButtonListener implements ActionListener {
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.print("Blur picture\n");
+  }
+}
+
+class SharpenButtonListener implements ActionListener {
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.print("Sharpen picture\n");
+  }
+}
+
+class GreyscaleButtonListener implements ActionListener {
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.print("Greyscale picture\n");
+  }
+}
+
+class SepiaButtonListenerListener implements ActionListener {
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.print("Sepia picture\n");
+  }
+}
+
+class SaveButtonListener implements ActionListener {
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.print("Save Layer\n");
+
+  }
+}
+
+class SaveAllButtonListener implements ActionListener {
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.print("Save All Layers\n");
+  }
 }

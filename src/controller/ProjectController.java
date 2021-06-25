@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import view.GraphicInterface;
 
 /**
  * Controls a Project.
@@ -25,6 +26,7 @@ public class ProjectController {
 
   private Readable rd;
   private Appendable ap;
+  public GraphicInterface view;
 
   /**
    * A public controller constructor that takes in the file naem and an appendable.
@@ -40,6 +42,7 @@ public class ProjectController {
 
     this.rd = new FileReader(fileName);
     this.ap = ap;
+    this.view = new GraphicInterface();
   }
 
   /**
@@ -55,6 +58,7 @@ public class ProjectController {
 
     this.rd = rd;
     this.ap = ap;
+    this.view = new GraphicInterface();
   }
 
   /**
@@ -271,5 +275,6 @@ public class ProjectController {
       }
     }
   }
+
 
 }
