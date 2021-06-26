@@ -7,10 +7,15 @@ import model.Project;
 import model.layermodel.Layer;
 import view.GraphicInterface;
 
+/** Recieves input from the GraphicInterface and updates the Project model.
+ *
+ */
 public class GraphicInterfaceController implements ActionListener {
+
   private final Project p;
   private final GraphicInterface v;
   private FileTypes fileType;
+
   public GraphicInterfaceController(Project p, GraphicInterface v) {
     this.p = p;
     this.v = v;
@@ -18,80 +23,77 @@ public class GraphicInterfaceController implements ActionListener {
     v.setListener(this);
   }
 
-
   @Override
   public void actionPerformed(ActionEvent e) {
     switch (e.getActionCommand()) {
-      case "ppmType" :
+      case "ppmType":
         this.fileType = FileTypes.PPM;
         break;
-      case "pngType" :
+      case "pngType":
         this.fileType = FileTypes.PNG;
         break;
-      case "jpegType" :
+      case "jpegType":
         this.fileType = FileTypes.JPEG;
         break;
-      case "load" :
+      case "load":
         String filename = v.getLoadFileName();
         String layerName = v.getLoadLayerName();
         try {
+
           try {
             p.loadFile(layerName, true, true, filename);
             v.addLayerMenuItem(layerName, this);
-          }
-          catch (IllegalArgumentException loadException) {
+          } catch (IllegalArgumentException loadException) {
             System.out.print("Could not load this layer\n");
           }
-        }
-        catch (IOException invfile) {
+
+          p.loadFile(layerName, true, true, filename);
+          v.addLayerMenuItem(layerName, this);
+          v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+              p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
+
+        } catch (IOException invfile) {
           System.out.print("Could not load this file.\n");
         }
         break;
-      case "blur" :
+      case "blur":
         try {
           p.applyFilter("blur");
-        }
-        catch (IllegalArgumentException blurEx) {
+        } catch (IllegalArgumentException blurEx) {
           System.out.print("Could not apply blur\n");
         }
+
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
-      case "sharpen" :
-        try {
-          p.applyFilter("sharpen");
-        }
-        catch (IllegalArgumentException sharpenEx) {
-          System.out.print("Could not apply sharpen\n");
-        }
+      case "sharpen":
+        p.applyFilter("sharpen");
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
-      case "greyscale" :
-        try {
-          p.applyFilter("greyscale");
-        }
-        catch (IllegalArgumentException greyscaleEx) {
-          System.out.print("Could not apply greyscale\n");
-        }
+      case "greyscale":
+        p.applyFilter("greyscale");
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
-      case "sepia" :
-        try {
-          p.applyFilter("sepia");
-        }
-        catch (IllegalArgumentException blurEx) {
-          System.out.print("Could not apply sepia\n");
-        }
+      case "sepia":
+        p.applyFilter("sepia");
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
-      case "save" :
+      case "save":
         this.saveHelper();
         break;
-      case "save all" :
+      case "save all":
         this.saveAllHelper();
         break;
       default:
-        for (Layer l: p.layers) {
-          if (l.name.equals(e.getActionCommand())) {
+        for (Layer l : p.layers) {
+          if (("Layers" + l.name).equals(e.getActionCommand())) {
             p.makeCurrent(e.getActionCommand());
           }
         }
-     }
+    }
 
   }
 
@@ -109,8 +111,7 @@ public class GraphicInterfaceController implements ActionListener {
           break;
         default: //Do nothing
       }
-    }
-    catch(IOException saveException) {
+    } catch (IOException saveException) {
       System.out.print("Could not save file");
     }
   }
@@ -133,10 +134,10 @@ public class GraphicInterfaceController implements ActionListener {
       } catch (IllegalArgumentException saveArgException) {
         System.out.print("Could not save file213");
       }
-      } catch (IOException saveException) {
-        System.out.print("Could not save file");
-      }
+    } catch (IOException saveException) {
+      System.out.print("Could not save file");
     }
+  }
 
 
 }

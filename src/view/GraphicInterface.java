@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.FlowLayout;
+import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -23,7 +24,9 @@ import model.ImageUtil;
 import model.Project;
 import model.layermodel.Layer;
 
-
+/** Represents the Project model visually.
+ *
+ */
 public class GraphicInterface extends JFrame {
 
   private final JMenuBar fileTypeMenuBar;
@@ -47,6 +50,9 @@ public class GraphicInterface extends JFrame {
 
   private JScrollPane scrollPane;
 
+  /** Constructs a Graphic interface.
+   *
+   */
   public GraphicInterface() {
     super();
     setSize(10, 500);
@@ -82,7 +88,7 @@ public class GraphicInterface extends JFrame {
     this.sharpenButton = new JButton("Sharpen");
     sharpenButton.setActionCommand("sharpen");
     this.greyscaleButton = new JButton("Greyscale");
-    greyscaleButton.setActionCommand("sharpen");
+    greyscaleButton.setActionCommand("greyscale");
     this.sepiaButton = new JButton("Sepia");
     sepiaButton.setActionCommand("sepia");
     this.saveButton = new JButton("Save");
@@ -107,17 +113,13 @@ public class GraphicInterface extends JFrame {
     options.add(this.saveAllButton, BorderLayout.WEST);
     options.add(this.layersMenuBar, BorderLayout.NORTH);
 
-    JList<Layer> listScrollPane = new JList<Layer>();
-
-    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-        listScrollPane, scrollPane);
-
-    splitPane.setDividerLocation(150);
+    scrollPane = new JScrollPane();
 
     add(options, BorderLayout.NORTH);
-    add(splitPane, BorderLayout.CENTER);
+    add(scrollPane, BorderLayout.CENTER);
     pack();
   }
+
 
   public static void main(String[] args, Project p) {
     GraphicInterface frame = new GraphicInterface();
@@ -165,6 +167,10 @@ public class GraphicInterface extends JFrame {
 
   }
 
+  /** Sets the listeners of the graphic interface's buttons to the specified listener.
+   *
+   * @param listener The listener to set the buttons to.
+   */
   public void setListener(ActionListener listener) {
     ppmMenu.addActionListener(listener);
     pngMenu.addActionListener(listener);
@@ -181,24 +187,59 @@ public class GraphicInterface extends JFrame {
     saveAllButton.addActionListener(listener);
   }
 
+  /** Returns the text in the loadFileName text field.
+   *
+   * @return loadFileName text.
+   */
   public String getLoadFileName() {
     return loadFileNameField.getText();
   }
 
+  /** Returns the text in the loadLayerName text field.
+   *
+   * @return loadLayerName text.
+   */
   public String getLoadLayerName() {
     return loadLayerNameField.getText();
   }
 
+  /** Sets the scrollPane to the specified scrollPane.
+   *
+   * @param sp the scrollPane to set.
+   */
   public void setScrollPane(JScrollPane sp) {
     this.scrollPane = sp;
   }
 
+  /** Adds a new menuItem to the layerMenu with the name of a layer, and the specified listener.
+   *
+   * @param layerName The name of the layer.
+   * @param listener The listener that the button will respond to.
+   */
   public void addLayerMenuItem(String layerName, ActionListener listener) {
     JButton newButton = new JButton(getLoadLayerName());
-    newButton.setActionCommand("Layers" + layerName);
+    newButton.setActionCommand("Layers " + layerName);
     newButton.addActionListener(listener);
     this.layersMenu.add(newButton);
   }
+
+  /** Updates the image displayed.
+   *
+   * @param writeBufferedImage The new image.
+   */
+  public void updateImage(BufferedImage writeBufferedImage) {
+    final JLabel imageLabel = new JLabel(new ImageIcon(writeBufferedImage));
+    final JScrollPane scroll = new JScrollPane(imageLabel);
+    if(!scrollPane.equals(new JScrollPane())) {
+      remove(scrollPane);
+    }
+    setScrollPane(scroll);
+    add(scrollPane);
+    repaint();
+    setVisible(true);
+    pack();
+  }
+
 
 
 }
