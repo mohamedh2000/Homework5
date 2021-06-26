@@ -70,14 +70,27 @@ public class GraphicInterfaceController implements ActionListener {
       case "save all" :
         this.saveAllHelper();
         break;
+      case "remove" :
+        p.removeCurrent();
+        if(!p.isEmpty()) {
+          v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+              p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
+        }
+        else {
+          v.remove(v.getScrollPane());
+          v.repaint();
+        }
+        break;
       default:
+        System.out.println(e.getActionCommand());
         for (Layer l: p.layers) {
           if (l.name.equals(e.getActionCommand())) {
             p.makeCurrent(e.getActionCommand());
           }
         }
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
      }
-
   }
 
   private void saveAllHelper() {

@@ -226,6 +226,9 @@ public class ProjectController {
                 Layer newLayer = evaluateLine(proj, currCommand, scanString);
                 proj.addLayer(newLayer);
                 currCommand = EMPTY;
+                view.updateImage(proj.getCurrentLayer()
+                    .writeBufferedImage(proj.getCurrentLayer().getWidth(),
+                        proj.getCurrentLayer().getHeight(), proj.getCurrentLayer().getPixelPositions()));
                 break;
               case "load": //load a layer
                 currCommand = LOAD;
@@ -247,11 +250,17 @@ public class ProjectController {
                 currCommand = FILTER;
                 evaluateLine(proj, currCommand, scanString);
                 currCommand = EMPTY;
+                view.updateImage(proj.getCurrentLayer()
+                    .writeBufferedImage(proj.getCurrentLayer().getWidth(),
+                        proj.getCurrentLayer().getHeight(), proj.getCurrentLayer().getPixelPositions()));
                 break;
               case "current": //toggle new current Layer
                 currCommand = CURRENT;
                 evaluateLine(proj, currCommand, scanString);
                 currCommand = EMPTY;
+                view.updateImage(proj.getCurrentLayer()
+                    .writeBufferedImage(proj.getCurrentLayer().getWidth(),
+                        proj.getCurrentLayer().getHeight(), proj.getCurrentLayer().getPixelPositions()));
                 break;
               case "visible": //toggle visibility of a layer
                 currCommand = VISIBLE;
@@ -263,6 +272,9 @@ public class ProjectController {
                   //TODO:LOAD FILE from Projecft loadFILE
                   loadTextFile(proj, nextString);
                   currCommand = EMPTY;
+                  view.updateImage(proj.getCurrentLayer()
+                      .writeBufferedImage(proj.getCurrentLayer().getWidth(),
+                          proj.getCurrentLayer().getHeight(), proj.getCurrentLayer().getPixelPositions()));
                 } else {
                   System.out.print("Invalid command");
                   currCommand = EMPTY;

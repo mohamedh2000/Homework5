@@ -118,10 +118,7 @@ public class Project {
     if (!visible) {
       newLayer.toggleVisibility();
     }
-    if (!currentLayer) {
-      makeCurrent(newLayer.name);
-      newLayer.toggleCurrentLayer();
-    }
+    makeCurrent(newLayer.name);
     this.layers.add(newLayer);
   }
 
@@ -161,11 +158,21 @@ public class Project {
    * @param layerName The name of the layer.
    */
   public void makeCurrent(String layerName) {
-    getCurrentLayer().toggleCurrentLayer();
+    try {
+      getCurrentLayer().toggleCurrentLayer();
+    }
+    catch (IllegalArgumentException action) {
+      System.out.println("There are no current layers");
+    }
     for (Layer lyr : this.layers) {
       if (lyr.name.equals(layerName)) {
         lyr.toggleCurrentLayer();
         break;
+      }
+      else {
+        if(lyr.isCurrent()) {
+          lyr.toggleCurrentLayer();
+        }
       }
     }
   }
@@ -222,4 +229,14 @@ public class Project {
     }
   }
 
+  public void removeCurrent() {
+    layers.remove(getCurrentLayer());
+    if(layers.size() != 0) {
+      layers.get(layers.size() - 1).toggleCurrentLayer();
+    }
+  }
+
+  public boolean isEmpty() {
+    return this.layers.size() == 0;
+  }
 }

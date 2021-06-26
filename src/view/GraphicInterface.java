@@ -10,20 +10,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.ImageUtil;
 import model.Project;
-import model.layermodel.Layer;
-
 
 public class GraphicInterface extends JFrame {
 
@@ -43,6 +39,7 @@ public class GraphicInterface extends JFrame {
   private final JButton sharpenButton;
   private final JButton greyscaleButton;
   private final JButton sepiaButton;
+  private final JButton removeButton;
   private final JButton saveButton;
   private final JButton saveAllButton;
 
@@ -83,11 +80,13 @@ public class GraphicInterface extends JFrame {
     this.sharpenButton = new JButton("Sharpen");
     sharpenButton.setActionCommand("sharpen");
     this.greyscaleButton = new JButton("Greyscale");
-    greyscaleButton.setActionCommand("sharpen");
+    greyscaleButton.setActionCommand("greyscale");
     this.sepiaButton = new JButton("Sepia");
     sepiaButton.setActionCommand("sepia");
     this.saveButton = new JButton("Save");
     saveButton.setActionCommand("save");
+    this.removeButton = new JButton("remove");
+    removeButton.setActionCommand("remove");
 
     this.saveAllButton = new JButton("Save All");
     saveAllButton.setActionCommand("save all");
@@ -103,6 +102,7 @@ public class GraphicInterface extends JFrame {
     options.add(this.sharpenButton, BorderLayout.WEST);
     options.add(this.greyscaleButton, BorderLayout.WEST);
     options.add(this.sepiaButton, BorderLayout.WEST);
+    options.add(this.removeButton, BorderLayout.WEST);
     options.add(this.fileTypeMenuBar, BorderLayout.NORTH);
     options.add(this.saveButton, BorderLayout.WEST);
     options.add(this.saveAllButton, BorderLayout.WEST);
@@ -132,22 +132,6 @@ public class GraphicInterface extends JFrame {
       final JScrollPane scroll = new JScrollPane(imageLabel);
       frame.add(scroll);
 
-
-      //frame.add(new ImageIcon(image));
-
-      //setViewportView(new ImageIcon(image));
-
-      //UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName());
-
-      //   UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-      //    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-      //    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-      //    {
-      //       if ("Nimbus".equals(info.getName())) {
-      //          UIManager.setLookAndFeel(info.getClassName());
-      //         break;
-      //    }
-      // }
     } catch (UnsupportedLookAndFeelException e) {
       // handle exception
     } catch (ClassNotFoundException e) {
@@ -165,7 +149,6 @@ public class GraphicInterface extends JFrame {
     ppmMenu.addActionListener(listener);
     pngMenu.addActionListener(listener);
     jpegMenu.addActionListener(listener);
-
     loadFileNameField.addActionListener(listener);
     loadLayerNameField.addActionListener(listener);
     loadButton.addActionListener(listener);
@@ -175,6 +158,8 @@ public class GraphicInterface extends JFrame {
     sepiaButton.addActionListener(listener);
     saveButton.addActionListener(listener);
     saveAllButton.addActionListener(listener);
+    removeButton.addActionListener(listener);
+
   }
 
   public String getLoadFileName() {
@@ -189,9 +174,13 @@ public class GraphicInterface extends JFrame {
     this.scrollPane = sp;
   }
 
+  public JScrollPane getScrollPane() {
+    return this.scrollPane;
+  }
+
   public void addLayerMenuItem(String layerName, ActionListener listener) {
     JButton newButton = new JButton(getLoadLayerName());
-    newButton.setActionCommand("Layers" + layerName);
+    newButton.setActionCommand(layerName);
     newButton.addActionListener(listener);
     this.layersMenu.add(newButton);
   }
