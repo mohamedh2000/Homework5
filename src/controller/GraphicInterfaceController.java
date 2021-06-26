@@ -11,13 +11,13 @@ public class GraphicInterfaceController implements ActionListener {
   private final Project p;
   private final GraphicInterface v;
   private FileTypes fileType;
+
   public GraphicInterfaceController(Project p, GraphicInterface v) {
     this.p = p;
     this.v = v;
     this.fileType = FileTypes.PPM;
     v.setListener(this);
   }
-
 
   @Override
   public void actionPerformed(ActionEvent e) {
@@ -37,6 +37,8 @@ public class GraphicInterfaceController implements ActionListener {
         try {
           p.loadFile(layerName, true, true, filename);
           v.addLayerMenuItem(layerName, this);
+          v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+              p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         }
         catch (IOException invfile) {
           System.out.print("Could not load this file.\n");
@@ -44,15 +46,23 @@ public class GraphicInterfaceController implements ActionListener {
         break;
       case "blur" :
         p.applyFilter("blur");
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
       case "sharpen" :
         p.applyFilter("sharpen");
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
       case "greyscale" :
         p.applyFilter("greyscale");
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
       case "sepia" :
         p.applyFilter("sepia");
+        v.updateImage(p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
+            p.getCurrentLayer().getHeight(), p.getCurrentLayer().getPixelPositions()));
         break;
       case "save" :
         this.saveHelper();

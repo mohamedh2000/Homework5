@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.FlowLayout;
+import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -107,15 +108,10 @@ public class GraphicInterface extends JFrame {
     options.add(this.saveAllButton, BorderLayout.WEST);
     options.add(this.layersMenuBar, BorderLayout.NORTH);
 
-    JList<Layer> listScrollPane = new JList<Layer>();
-
-    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-        listScrollPane, scrollPane);
-
-    splitPane.setDividerLocation(150);
+    scrollPane = new JScrollPane();
 
     add(options, BorderLayout.NORTH);
-    add(splitPane, BorderLayout.CENTER);
+    add(scrollPane, BorderLayout.CENTER);
     pack();
   }
 
@@ -181,20 +177,12 @@ public class GraphicInterface extends JFrame {
     saveAllButton.addActionListener(listener);
   }
 
-  public void addComp(ImageIcon img) {
-
-  }
-
   public String getLoadFileName() {
     return loadFileNameField.getText();
   }
 
   public String getLoadLayerName() {
     return loadLayerNameField.getText();
-  }
-
-  public JScrollPane getScrollPane() {
-    return scrollPane;
   }
 
   public void setScrollPane(JScrollPane sp) {
@@ -207,6 +195,20 @@ public class GraphicInterface extends JFrame {
     newButton.addActionListener(listener);
     this.layersMenu.add(newButton);
   }
+
+  public void updateImage(BufferedImage writeBufferedImage) {
+    final JLabel imageLabel = new JLabel(new ImageIcon(writeBufferedImage));
+    final JScrollPane scroll = new JScrollPane(imageLabel);
+    if(!scrollPane.equals(new JScrollPane())) {
+      remove(scrollPane);
+    }
+    setScrollPane(scroll);
+    add(scrollPane);
+    repaint();
+    setVisible(true);
+    pack();
+  }
+
 
 
 }
