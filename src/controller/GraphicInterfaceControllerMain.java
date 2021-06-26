@@ -20,6 +20,7 @@ public class GraphicInterfaceControllerMain {
     v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     v.setVisible(true);
 
+    /*
     p.addLayer(ImageUtil.readJPEGPNG("masuka.jpeg"));
 
     BufferedImage image = p.getCurrentLayer().writeBufferedImage(p.getCurrentLayer().getWidth(),
@@ -27,6 +28,8 @@ public class GraphicInterfaceControllerMain {
     final JLabel imageLabel = new JLabel(new ImageIcon(image));
     final JScrollPane scroll = new JScrollPane(imageLabel);
     v.setScrollPane(scroll);
+    */
+
   }
 
 }

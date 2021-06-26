@@ -24,7 +24,6 @@ public abstract class FilterMethods implements Filter {
     int kernelHeight = toApply.getHeight();
 
     for (int row : layer.getPixelPositions().keySet()) {
-      System.out.println("ROW: " + row);
       for (Pixel pixel : layer.getPixelPositions().get(row)) {
         int pixelIndex = mapUpdated.get(row).indexOf(pixel);
         float[] data = toApply.getKernelData(null);

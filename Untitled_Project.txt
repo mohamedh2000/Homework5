@@ -1,4 +1,0 @@
-Untitled_Project
-Untitled_Layer_0 true true C:\Users\spenc\Desktop\Northeastern Classes\CS3500\Projects\Homework5\Untitled_Layer_0.ppm
-Masuka true true C:\Users\spenc\Desktop\Northeastern Classes\CS3500\Projects\Homework5\Masuka.ppm
-Spencer true true C:\Users\spenc\Desktop\Northeastern Classes\CS3500\Projects\Homework5\Spencer.ppm

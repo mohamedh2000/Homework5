@@ -181,20 +181,12 @@ public class GraphicInterface extends JFrame {
     saveAllButton.addActionListener(listener);
   }
 
-  public void addComp(ImageIcon img) {
-
-  }
-
   public String getLoadFileName() {
     return loadFileNameField.getText();
   }
 
   public String getLoadLayerName() {
     return loadLayerNameField.getText();
-  }
-
-  public JScrollPane getScrollPane() {
-    return scrollPane;
   }
 
   public void setScrollPane(JScrollPane sp) {

@@ -74,7 +74,12 @@ public class Project {
     if (filetype == null) {
       throw new IllegalArgumentException("filetype cannot be null.");
     }
-    this.layers.get(this.layers.size() - 1).exportLayer(filetype);
+    if (this.layers.size() >= 1) {
+      this.layers.get(this.layers.size() - 1).exportLayer(filetype);
+    }
+    else {
+      throw new IllegalArgumentException("No layer to save");
+    }
   }
 
   /**

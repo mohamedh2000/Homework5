@@ -353,4 +353,12 @@ public class Layer extends Export {
     return this.name + " " + this.visible + " " + this.currentLayer + " " + filePath + "\n";
   }
 
+  /** Returns the name of this layer.
+   *
+   * @return The name of the layer
+   */
+  public String getName() {
+    return this.name;
+  }
+
 }

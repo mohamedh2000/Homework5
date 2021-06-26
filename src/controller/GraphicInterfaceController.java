@@ -35,24 +35,49 @@ public class GraphicInterfaceController implements ActionListener {
         String filename = v.getLoadFileName();
         String layerName = v.getLoadLayerName();
         try {
-          p.loadFile(layerName, true, true, filename);
-          v.addLayerMenuItem(layerName, this);
+          try {
+            p.loadFile(layerName, true, true, filename);
+            v.addLayerMenuItem(layerName, this);
+          }
+          catch (IllegalArgumentException loadException) {
+            System.out.print("Could not load this layer\n");
+          }
         }
         catch (IOException invfile) {
           System.out.print("Could not load this file.\n");
         }
         break;
       case "blur" :
-        p.applyFilter("blur");
+        try {
+          p.applyFilter("blur");
+        }
+        catch (IllegalArgumentException blurEx) {
+          System.out.print("Could not apply blur\n");
+        }
         break;
       case "sharpen" :
-        p.applyFilter("sharpen");
+        try {
+          p.applyFilter("sharpen");
+        }
+        catch (IllegalArgumentException sharpenEx) {
+          System.out.print("Could not apply sharpen\n");
+        }
         break;
       case "greyscale" :
-        p.applyFilter("greyscale");
+        try {
+          p.applyFilter("greyscale");
+        }
+        catch (IllegalArgumentException greyscaleEx) {
+          System.out.print("Could not apply greyscale\n");
+        }
         break;
       case "sepia" :
-        p.applyFilter("sepia");
+        try {
+          p.applyFilter("sepia");
+        }
+        catch (IllegalArgumentException blurEx) {
+          System.out.print("Could not apply sepia\n");
+        }
         break;
       case "save" :
         this.saveHelper();
@@ -92,22 +117,26 @@ public class GraphicInterfaceController implements ActionListener {
 
   private void saveHelper() {
     try {
-      switch (this.fileType) {
-        case PPM:
-          p.save("ppm");
-          break;
-        case PNG:
-          p.save("png");
-          break;
-        case JPEG:
-          p.save("jpeg");
-          break;
-        default: //Do nothing
+      try {
+        switch (this.fileType) {
+          case PPM:
+            p.save("ppm");
+            break;
+          case PNG:
+            p.save("png");
+            break;
+          case JPEG:
+            p.save("jpeg");
+            break;
+          default: //Do nothing
+        }
+      } catch (IllegalArgumentException saveArgException) {
+        System.out.print("Could not save file213");
+      }
+      } catch (IOException saveException) {
+        System.out.print("Could not save file");
       }
     }
-    catch(IOException saveException) {
-      System.out.print("Could not save file");
-    }
-  }
+
 
 }
